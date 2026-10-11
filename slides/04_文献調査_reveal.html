@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>情報論 2026-4 ｜ AI活用(2) 文献調査</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- 1. Title -->
+    <section class="title">
+      <h1>情報論 2026-4</h1>
+      <h2>AI活用(2) 文献調査</h2>
+      <p>情報科学専攻 ｜ 松野 裕<br>
+      matsuno.yutaka@nihon-u.ac.jp<br>
+      2026年5月13日（対面授業・100分）</p>
+    </section>
+
+    <!-- 2. 第3回課題の総評 -->
+    <section>
+      <h2>第3回課題（ガクチカ）の総評</h2>
+      <h3>提出状況: <span class="teal">11名 / 42名</span>（5/12時点・締切は本日）</h3>
+      <div class="small">
+        <table>
+          <thead><tr><th>観察された工夫</th><th>傾向</th></tr></thead>
+          <tbody>
+            <tr><td>ROCF + STAR + ペルソナを4 Step全て実施</td><td><span class="green"><strong>ほぼ全員</strong></span></td></tr>
+            <tr><td><strong>AI添削 → 自分で修正 → 再添削</strong>を複数サイクル</td><td>約半数</td></tr>
+            <tr><td><strong>2パターン生成して比較</strong>（AIに違いを言語化させる）</td><td>半数以上</td></tr>
+            <tr><td><strong>業界に合わせて専門用語を削減</strong>（IT/SIer向け再生成）</td><td>数名</td></tr>
+            <tr><td>外部資料（就活サイト記事等）を Context として添付</td><td>少数だが鋭い</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote><strong>総じて</strong>: 前回のROCFとペルソナが実戦応用できている。<span class="highlight">「AIに任せきり」ではなく、自分の判断で介入した形跡</span>がある提出物が目立つ</blockquote>
+      <blockquote><strong>連絡</strong>: 提出フォルダに第2回レポートが1件混在していました。次回からは指定フォルダの確認をお願いします</blockquote>
+    </section>
+
+    <!-- 3. 参考になった工夫(1/2) -->
+    <section>
+      <h2>参考になった工夫（1/2）</h2>
+      <h3>工夫① <span class="teal"><strong>AI添削 → 自分で修正 → 再添削を繰り返す</strong></span></h3>
+      <p>ある提出者は <span class="highlight">同じ「厳しい採用担当者」ペルソナで6回連続</span>添削サイクルを回した。毎回「指摘 → 自分で書き換え → 再評価」を実行。AIから「『独自アルゴリズム』が抽象的」と指摘されたら、研究内容を踏まえて具体的な設計判断を1文ずつ追加していった</p>
+      <blockquote><strong>学び</strong>: 1回で完成させない。AIは<em>同じプロンプト</em>で何度でも厳しくしてくれる</blockquote>
+      <h3>工夫② <span class="teal"><strong>AIに「なぜそう書いたか」を言語化させる</strong></span></h3>
+      <p>別の提出者は2パターン生成させた後、「<strong>両者の違いと、なぜそう組み立てたかを言語化せよ</strong>」というメタプロンプトを投げ、AIから「順序重視 vs 因果重視」「均等配置 vs 課題深掘り」という設計意図を引き出してから自分で選択していた</p>
+      <blockquote><strong>学び</strong>: AIの出力を<strong>評価する力</strong>は、AIに評価軸を語らせると育つ</blockquote>
+    </section>
+
+    <!-- 4. 参考になった工夫(2/2) -->
+    <section>
+      <h2>参考になった工夫（2/2）</h2>
+      <h3>工夫③ <span class="teal"><strong>STAR要素を一つずつ追加して挙動観察</strong></span></h3>
+      <p>ある学生は「Situationだけ与えて出力 → Task追加 → Action/Result追加」と段階的にSTAR要素を埋め、各段階でAIが何を勝手に補完するかを観察。<span class="highlight">「情報が薄いとAIは話を盛る」</span>という挙動を実証していた</p>
+      <h3>工夫④ <span class="teal"><strong>業界向けにプロンプトをチューニング</strong></span></h3>
+      <p>複数の提出者が、まず研究内容そのままで生成 → 次に「<strong>IT企業志望のため専門用語は最小限に</strong>」と再生成。同じ素材から<strong>業界別の2バージョン</strong>を作っていた</p>
+      <h3>工夫⑤ <span class="teal"><strong>外部の参考資料を Context として添付</strong></span></h3>
+      <p>リクナビ・マイナビの記事URLや就活サイトの解説テキストを<strong>プロンプトに添付</strong>してから質問を生成させていた提出者も。Few-shot的に「お手本」を与えると質問の質が上がる</p>
+    </section>
+
+    <!-- 5a. 共通の落とし穴(1/2) -->
+    <section>
+      <h2>共通の落とし穴（1/2）</h2>
+      <h3>落とし穴①: <span class="red">AIが渡した情報以上に話を「盛る」</span></h3>
+      <p>複数の提出者が振り返りで指摘:</p>
+      <ul>
+        <li>「自分の提案した情報が少なすぎたため、AIが<span class="highlight">勝手にストーリーを追加</span>してしまった」</li>
+        <li>「AIが文章生成する回数が増えるにつれ、<span class="highlight">渡した情報以上の創作内容が追加</span>された」</li>
+      </ul>
+      <blockquote><strong>対策</strong>: 素材を厚く渡す（数値・期間・人数・自分の判断）／プロンプトに「<strong>与えた情報以外を作らない</strong>」を明示</blockquote>
+    </section>
+
+    <!-- 5b. 共通の落とし穴(2/2) -->
+    <section>
+      <h2>共通の落とし穴（2/2）</h2>
+      <h3>落とし穴②: <span class="red">「独自アルゴリズム」「データ分析」のまま終わる</span></h3>
+      <p>専門性の高い研究テーマほど、AIは具体内容を埋められず<strong>抽象的な表現に寄りやすい</strong>。AI添削役からも「ブラックボックス化している」と何度も指摘されていた</p>
+      <blockquote><strong>対策</strong>: 専門用語を残すか削るか以前に、<strong>「何の発想で独自と言えるか」</strong>を1点だけ自分の言葉で書き加える</blockquote>
+      <h3>本日の文献調査でも構造は同じ</h3>
+      <p>自分で集めた具体的な素材（論文タイトル・数値・比較軸）が厚いほど、<span class="highlight">AIから引き出せる回答も深くなる</span></p>
+    </section>
+
+    <!-- 6. アジェンダ -->
+    <section>
+      <h2>本日のアジェンダ</h2>
+      <ol start="0">
+        <li><strong>前回課題のフィードバック</strong>（10分） — 上記の総評と工夫紹介</li>
+        <li><strong>はじめに</strong> — なぜ今、研究調査にAIなのか？（5分）</li>
+        <li><strong>AIツール紹介</strong> — 研究調査に使えるツール群（15分）</li>
+        <li><strong>プロンプト技法</strong> — 4つのStepで文献調査を進める（15分）</li>
+        <li><strong>演習</strong> — 自分の研究テーマで実践（35分）</li>
+        <li><strong>まとめ</strong> — AIと賢く付き合うために（20分）</li>
+      </ol>
+    </section>
+
+    <!-- 7. Section divider: はじめに -->
+    <section class="section-divider">
+      <h1>はじめに</h1>
+      <p>なぜ今、研究調査にAIなのか？</p>
+    </section>
+
+    <!-- 8. 悩み (1/2) -->
+    <section>
+      <h2>研究調査における"あるある"な悩み（1/2）</h2>
+      <h3>情報爆発</h3>
+      <ul>
+        <li>arXivだけで<span class="highlight">年間20万件超</span>（2024年は約24万件）の論文が投稿される</li>
+        <li>自分の分野でも毎週数十本の新しい論文が出る</li>
+        <li>何から読めばいいか分からない</li>
+      </ul>
+      <h3>キーワードの壁</h3>
+      <ul>
+        <li>適切な検索キーワードが見つからず<span class="red"><strong>重要な研究を見逃す</strong></span></li>
+        <li>同じ概念でも分野によって用語が異なる</li>
+        <li>英語キーワードの選定が難しい</li>
+      </ul>
+    </section>
+
+    <!-- 9. 悩み (2/2) -->
+    <section>
+      <h2>研究調査における"あるある"な悩み（2/2）</h2>
+      <h3>時間的制約</h3>
+      <ul>
+        <li>膨大な英語論文を効率的に読む時間がない</li>
+        <li>1本の論文を精読するのに数時間かかる</li>
+      </ul>
+      <h3>言語化の壁</h3>
+      <ul>
+        <li>自分の研究の「<span class="teal"><strong>新規性</strong></span>」を聞かれると言葉に詰まる</li>
+        <li>関連研究との違いをうまく言えない</li>
+      </ul>
+    </section>
+
+    <!-- 10. 従来 -->
+    <section>
+      <h2>AIがもたらす研究スタイルの変革（従来）</h2>
+      <h3>従来の調査プロセス</h3>
+      <ol>
+        <li>キーワードを考える</li>
+        <li>Google Scholarで検索</li>
+        <li>論文を1本ずつ読む</li>
+        <li>参考文献をたどる</li>
+        <li>ノートにまとめる</li>
+        <li>研究の位置づけを考える</li>
+      </ol>
+      <p class="small"><strong>所要時間: 数日〜数週間</strong></p>
+    </section>
+
+    <!-- 11. AI活用 -->
+    <section>
+      <h2>AIがもたらす研究スタイルの変革（AI活用）</h2>
+      <h3>AIを活用した調査プロセス</h3>
+      <ol>
+        <li>AIでキーワード候補を<span class="teal"><strong>広げる</strong></span></li>
+        <li>AI検索で<span class="teal"><strong>見落としを減らす</strong></span></li>
+        <li>AIで論文を<span class="teal"><strong>要約・比較</strong></span></li>
+        <li>AIで関連研究の<span class="teal"><strong>候補を提示</strong></span>させる</li>
+        <li>AIで<span class="teal"><strong>構造的</strong></span>に整理</li>
+        <li>AIで新規性の<span class="teal"><strong>たたき台</strong></span>を作る</li>
+      </ol>
+      <p class="small"><strong>所要時間: 数時間〜数日</strong></p>
+      <blockquote>AIは研究の「代行」ではなく「加速」のためのツール</blockquote>
+    </section>
+
+    <!-- 12. 比較 -->
+    <section>
+      <h2>従来の調査プロセス vs AI活用</h2>
+      <table>
+        <thead><tr><th>項目</th><th>従来</th><th>AI活用</th></tr></thead>
+        <tbody>
+          <tr><td>キーワード</td><td>自分の知識に依存</td><td>AIとの対話で拡張</td></tr>
+          <tr><td>全体像把握</td><td>論文を1本ずつ読む</td><td>AIで短時間で俯瞰</td></tr>
+          <tr><td>深掘り</td><td>原文を精読</td><td>AIで構造的要約→重要部分を精読</td></tr>
+          <tr><td>思考整理</td><td>自分の頭の中で整理</td><td>AIに壁打ちして言語化</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 13a. 機密情報リスク3段階 -->
+    <section>
+      <h2><span class="red">機密情報の取り扱い: リスク3段階で判断</span></h2>
+      <div class="small">
+        <table>
+          <thead><tr><th>リスク</th><th>該当データ</th><th>推奨対応</th></tr></thead>
+          <tbody>
+            <tr><td><span class="red"><strong>高</strong></span></td><td>特許出願前のアイデア／NDA対象データ</td><td><span class="red"><strong>どのAIにも入れない</strong></span>。公知化・契約違反リスク</td></tr>
+            <tr><td><span class="orange"><strong>中</strong></span></td><td>未発表だが自分の研究データ</td><td><span class="red"><strong>そのままは入力しない</strong></span>。匿名化・要約済み・公開して問題ない範囲に限定</td></tr>
+            <tr><td><span class="green"><strong>低</strong></span></td><td>公開済論文・公開可能なメモ</td><td>通常利用OK</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote>「絶対入れない」より「<span class="highlight">契約と設定を確認した上で判断する</span>」が実務的。NDA/特許出願前/共同研究データは原則入力しない</blockquote>
+    </section>
+
+    <!-- 13b. ツール別学習利用 -->
+    <section>
+      <h2>ツール別 学習利用の状況</h2>
+      <div class="small">
+        <table>
+          <thead><tr><th>ツール</th><th>改善目的の利用</th><th>備考</th></tr></thead>
+          <tbody>
+            <tr><td><strong>ChatGPT 無料/Plus</strong></td><td>デフォルトで利用</td><td>Settings → Data Controls → "Improve the model" OFF で停止</td></tr>
+            <tr><td><strong>ChatGPT Business/Enterprise/API</strong></td><td><span class="green">利用しない</span></td><td>契約上保護</td></tr>
+            <tr><td><strong>Claude (Anthropic)</strong></td><td><span class="green">原則利用しない</span></td><td>ユーザー許可・安全性レビュー対象は例外</td></tr>
+            <tr><td><strong>Gemini 個人 Google アカウント</strong></td><td>デフォルトで利用</td><td>アクティビティ設定で OFF</td></tr>
+            <tr><td><strong>Gemini API 無料枠 (AI Studio含む)</strong></td><td><span class="orange">利用される</span></td><td>入出力が改善目的に使われ、人間レビュアーが確認する場合あり</td></tr>
+            <tr><td><strong>Gemini API 有料枠 (Cloud Billing有効)</strong></td><td><span class="green">利用しない</span></td><td>規約上保護</td></tr>
+            <tr><td><strong>Gemini for Workspace (Education/Enterprise契約)</strong></td><td><span class="green">利用しない</span></td><td>管理者設定の対象、契約に紐づく</td></tr>
+            <tr><td><strong>ローカルLLM</strong> (Ollama等)</td><td><span class="green">送信なし</span></td><td>ネットワーク隔離</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote><strong>学習利用の停止 ≠ 完全な秘匿</strong>: サーバ送信・一時保存・人手レビューの可能性は残る。入力するのは公開しても問題ない範囲のみが原則</blockquote>
+    </section>
+
+    <!-- 14. Section divider: ツール -->
+    <section class="section-divider">
+      <h1>研究調査AIツールのカオスマップ</h1>
+      <p>目的に応じてツールを使い分ける</p>
+    </section>
+
+    <!-- 15. 対話型 -->
+    <section>
+      <h2>対話型AI（ブレスト・要約）</h2>
+      <h3>主なツール</h3>
+      <table>
+        <thead><tr><th>ツール</th><th>特徴</th><th>コスト</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Gemini</strong></td><td>Google製。長文対応。本学アカウントで利用可</td><td><span class="green"><strong>無料</strong></span></td></tr>
+          <tr><td>ChatGPT</td><td>OpenAI製。汎用性が高い</td><td>無料版あり / Plus $20/月</td></tr>
+          <tr><td>Claude</td><td>Anthropic製。長文の分析に強い</td><td>無料版あり / Pro $20/月</td></tr>
+        </tbody>
+      </table>
+      <h3>得意なこと</h3>
+      <ul><li>アイデアの壁打ち、論文の要約・翻訳、研究テーマの深掘り</li></ul>
+      <h3>注意点</h3>
+      <ul>
+        <li><span class="red">学習データに基づく回答</span>のため、最新論文をカバーしていない場合がある</li>
+        <li>存在しない論文を捏造することがある（ハルシネーション）</li>
+      </ul>
+    </section>
+
+    <!-- 16. 検索特化型 -->
+    <section>
+      <h2>検索特化型AI（候補を広げる調査）</h2>
+      <h3>主なツール</h3>
+      <table>
+        <thead><tr><th>ツール</th><th>特徴</th><th>URL</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Perplexity</strong></td><td>出典付きで回答。検索と要約を同時に</td><td>perplexity.ai</td></tr>
+          <tr><td><strong>Semantic Scholar</strong></td><td>AI搭載の学術検索エンジン。2億本以上の論文</td><td>semanticscholar.org</td></tr>
+        </tbody>
+      </table>
+      <h3>Perplexityの強み</h3>
+      <ul>
+        <li>回答に<span class="highlight">出典リンク</span>が付く → ファクトチェックしやすい</li>
+        <li>学術モード（Academic Focus）で論文に特化した検索が可能</li>
+        <li>フォローアップ質問で深掘りできる</li>
+      </ul>
+      <h3>Semantic Scholarの強み</h3>
+      <ul>
+        <li>被引用数、影響度などの<span class="highlight">メトリクス</span>が充実</li>
+        <li>TLDR機能で論文の要旨を1文で表示</li>
+        <li>関連論文の推薦機能</li>
+      </ul>
+    </section>
+
+    <!-- 17. 論文分析特化型 -->
+    <section>
+      <h2>論文分析特化型AI（深掘り）</h2>
+      <h3>主なツール</h3>
+      <table>
+        <thead><tr><th>ツール</th><th>特徴</th><th>用途</th></tr></thead>
+        <tbody>
+          <tr><td><strong>NotebookLM</strong></td><td>Google製。PDFをアップロードして対話</td><td>論文の精読・質問</td></tr>
+          <tr><td><strong>Elicit</strong></td><td>論文検索＋データ抽出</td><td>系統的レビュー</td></tr>
+          <tr><td><strong>Connected Papers</strong></td><td>引用関係をグラフで可視化</td><td>関連研究の発見</td></tr>
+        </tbody>
+      </table>
+      <h3>NotebookLMの使い方</h3>
+      <ol>
+        <li>論文PDFをアップロードして質問（例: 手法の要約、Table 2の説明）</li>
+        <li>複数論文をまとめて比較分析も可能</li>
+      </ol>
+      <blockquote><strong>おすすめ</strong>: まずPerplexityと使い慣れたAIツールを組み合わせよう</blockquote>
+    </section>
+
+    <!-- 18. Section divider: プロンプト -->
+    <section class="section-divider">
+      <h1>文献調査のためのプロンプト設計</h1>
+      <p>4つのStepで進める</p>
+    </section>
+
+    <!-- 19. ROCF復習 -->
+    <section>
+      <h2>ROCFモデルの復習と文献調査への応用</h2>
+      <h3>ROCFモデル（前回の復習）</h3>
+      <table>
+        <thead><tr><th>要素</th><th>意味</th><th>文献調査での例</th></tr></thead>
+        <tbody>
+          <tr><td><strong>R</strong> - Role</td><td>役割</td><td>「あなたは○○分野の専門家です」</td></tr>
+          <tr><td><strong>O</strong> - Objective</td><td>目的</td><td>「関連研究の候補を広く調べたい」</td></tr>
+          <tr><td><strong>C</strong> - Context</td><td>文脈</td><td>「私の研究テーマは○○です」</td></tr>
+          <tr><td><strong>F</strong> - Format</td><td>出力形式</td><td>「表形式で比較してください」</td></tr>
+        </tbody>
+      </table>
+      <h3>文献調査で効くポイント</h3>
+      <ul>
+        <li><span class="teal"><strong>Role</strong></span>に分野名を入れる → 一般論ではなく分野固有の語彙で返ってくる</li>
+        <li><span class="teal"><strong>Context</strong></span>を厚くするほど推測の余地が減る。ただし論文名・著者名・数値は<span class="red">必ず確認する</span></li>
+        <li><span class="teal"><strong>Format</strong></span>で「表」「比較」を指定 → 後で読み返すコストが下がる</li>
+      </ul>
+    </section>
+
+    <!-- 20. Step 1: キーワード -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 1: 研究テーマのキーワード拡張</h2>
+      <p><strong>目的</strong>: 検索の漏れを減らすため、関連キーワードの候補を広く洗い出す</p>
+      <h3>プロンプト例</h3>
+      <div class="prompt-box">
+        あなたは[自分の研究分野]の専門家です。私の研究テーマ「[テーマ]」について、以下をそれぞれ10個ずつリストアップしてください:<br>
+        1. 関連する技術キーワード（英語・日本語の両方）<br>
+        2. 応用分野<br>
+        3. 未解決の課題<br>
+        出力は表形式でお願いします。
+      </div>
+      <h3>期待される効果</h3>
+      <ul><li>自分では思いつかなかった<span class="highlight">関連キーワード</span>・<span class="teal"><strong>英語表現</strong></span>を発見し、研究の<strong>全体像</strong>を把握できる</li></ul>
+    </section>
+
+    <!-- 21. Step 2: サーベイ -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 2: 全体像を掴むサーベイ</h2>
+      <p><strong>目的</strong>: 分野の重要論文と最新動向を効率的に把握する</p>
+      <h3>Perplexityへのプロンプト例（英語推奨）</h3>
+      <div class="prompt-box">
+        Find seminal papers and recent survey papers on [keywords].<br><br>
+        For each paper, provide:<br>
+        - Title, authors, and year<br>
+        - Brief summary and main contribution<br>
+        - Citation count if available<br><br>
+        Include both foundational works and papers from the last 5 years.
+      </div>
+      <h3>なぜ英語で検索するのか</h3>
+      <ul>
+        <li>学術論文の大半は英語で書かれている</li>
+        <li>英語キーワード・英語タイトルで検索すると、英語圏の学術文献に当たりやすい</li>
+      </ul>
+    </section>
+
+    <!-- 22. Step 3: 深掘り -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 3: 注目論文を深掘りする</h2>
+      <p><strong>目的</strong>: 重要な論文の内容を構造的に理解する</p>
+      <h3>プロンプト例</h3>
+      <div class="prompt-box">
+        以下の論文のアブストラクトを読んで、<br>
+        次の4つの観点で構造的に要約してください:<br><br>
+        1. 背景: この研究が取り組む問題は何か<br>
+        2. 手法: どのようなアプローチを採用しているか<br>
+        3. 結果: 主な実験結果と達成した性能<br>
+        4. 限界: この研究の限界や残された課題<br><br>
+        [アブストラクトをここに貼り付け]
+      </div>
+      <h3>さらに深掘りするプロンプト</h3>
+      <ul>
+        <li>「この手法の新規性を3つ挙げてください」</li>
+        <li>「先行研究○○との違いを表形式で比較してください」</li>
+        <li>「この研究の再現に必要なデータと計算リソースは？」</li>
+      </ul>
+    </section>
+
+    <!-- 23. Step 4: 新規性 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 4: 研究の新規性を言語化する</h2>
+      <p><strong>目的</strong>: 自分の研究が先行研究とどう異なるかを明確にする</p>
+      <h3>プロンプト例</h3>
+      <div class="prompt-box">
+        先行研究[論文Aのタイトルと概要]に対し、<br>
+        私の研究アイデア[概要]が持つ新規性について<br>
+        批判的な視点から論点を挙げてください。<br><br>
+        以下の観点で分析してください:<br>
+        1. 手法の違い<br>
+        2. 対象データ・ドメインの違い<br>
+        3. 評価指標の違い<br>
+        4. 想定される優位性<br>
+        5. 想定される弱点・反論
+      </div>
+      <h3>このStepの重要性</h3>
+      <ul>
+        <li>論文のIntroductionで<span class="highlight">先行研究との差別化</span>を書く際に直結</li>
+        <li>学会発表での質疑応答の<strong>準備</strong>にもなる</li>
+        <li>研究計画書の<strong>説得力</strong>が向上する</li>
+      </ul>
+    </section>
+
+    <!-- 24. Section divider: 演習 -->
+    <section class="section-divider">
+      <h1>演習（35分）</h1>
+      <p>自分の研究テーマで4つのStepを実践しよう</p>
+    </section>
+
+    <!-- 25. 演習進め方 -->
+    <section>
+      <h2>演習の進め方</h2>
+      <h3>準備するもの</h3>
+      <ul>
+        <li>AIツール（ChatGPT / Claude / Gemini 等）</li>
+        <li>Perplexity（perplexity.ai にアクセス）</li>
+        <li>メモ帳またはテキストエディタ</li>
+      </ul>
+      <h3>4つのStepを順番に実施</h3>
+      <table>
+        <thead><tr><th>Step</th><th>内容</th><th>時間</th></tr></thead>
+        <tbody>
+          <tr><td>Step 1</td><td>キーワード拡張</td><td>7分</td></tr>
+          <tr><td>Step 2</td><td>サーベイ</td><td>10分</td></tr>
+          <tr><td>Step 3</td><td>深掘り</td><td>10分</td></tr>
+          <tr><td>Step 4</td><td>新規性の言語化</td><td>8分</td></tr>
+        </tbody>
+      </table>
+      <blockquote>各Stepの結果は保存しておくこと（課題で使用します）</blockquote>
+    </section>
+
+    <!-- 26. 演習Step 1 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習Step 1: キーワード拡張（7分）</h2>
+      <h3>やること</h3>
+      <ol>
+        <li>AIツール（ChatGPT / Claude / Gemini 等）を開く</li>
+        <li>Step 1のプロンプトに<strong>自分の研究テーマ</strong>を当てはめて実行</li>
+        <li>出力されたキーワードを確認
+          <ul>
+            <li>知っているキーワード → チェック</li>
+            <li>知らないキーワード → <span class="orange"><strong>要調査リスト</strong></span>に追加</li>
+          </ul>
+        </li>
+        <li>キーワードリストを保存</li>
+      </ol>
+      <h3>確認ポイント</h3>
+      <ul>
+        <li>自分が普段使わない関連キーワードが見つかったか？</li>
+        <li>英語キーワードは適切か？</li>
+        <li>応用分野や未解決課題で新しい発見があったか？</li>
+      </ul>
+    </section>
+
+    <!-- 27. 演習Step 2 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習Step 2: サーベイ（10分）</h2>
+      <h3>やること</h3>
+      <ol>
+        <li><strong>Perplexity</strong>を開く（Academic Focusモードを推奨）</li>
+        <li>Step 2のプロンプトに、Step 1で得たキーワードを使って検索</li>
+        <li>重要そうな論文を<strong>5本程度</strong>ピックアップ</li>
+        <li>各論文について以下をメモ:
+          <ul>
+            <li>タイトル・著者・年</li>
+            <li>概要（1-2文）</li>
+            <li>自分の研究との関連性</li>
+          </ul>
+        </li>
+      </ol>
+      <h3>注意</h3>
+      <ul>
+        <li>Perplexityが出典として示すリンクを<span class="red"><strong>必ずクリックして確認</strong></span></li>
+        <li>論文が実在するか、内容が正しいかを確認する習慣をつける</li>
+      </ul>
+    </section>
+
+    <!-- 28. 演習Step 3 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習Step 3: 深掘り（10分）</h2>
+      <h3>やること</h3>
+      <ol>
+        <li>Step 2でピックアップした論文から<strong>最も関連性の高い1本</strong>を選ぶ</li>
+        <li>その論文のアブストラクトをコピー</li>
+        <li><strong>AIツール</strong>でStep 3のプロンプトを実行</li>
+        <li>要約結果を確認し、以下を考える:
+          <ul>
+            <li>この研究の手法は自分の研究に応用できるか？</li>
+            <li>この研究の限界を自分の研究で解決できるか？</li>
+          </ul>
+        </li>
+      </ol>
+      <h3>時間が余ったら</h3>
+      <ul>
+        <li>2本目の論文も同様に深掘り</li>
+        <li>2つの論文を比較するプロンプトを試す</li>
+      </ul>
+    </section>
+
+    <!-- 29. 演習Step 4 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習Step 4: 新規性の言語化(8分)</h2>
+      <h3>やること</h3>
+      <ol>
+        <li>Step 3で分析した先行研究を踏まえて、<strong>AIツール</strong>でStep 4のプロンプトを実行</li>
+        <li>AIの出力を確認し、以下を考える:
+          <ul>
+            <li>自分の研究の強みとして納得できるポイントは？</li>
+            <li>指摘された弱点にどう反論できるか？</li>
+          </ul>
+        </li>
+        <li>新規性を<strong>1-2文</strong>で自分の言葉にまとめる</li>
+      </ol>
+      <h3>新規性の言語化テンプレート</h3>
+      <div class="prompt-box">
+        先行研究[○○]では[手法/対象]に[限界]があった。<br>
+        本研究では[自分のアプローチ]により[改善点]を実現する。
+      </div>
+      <blockquote>この1-2文が論文Introductionの核になる</blockquote>
+    </section>
+
+    <!-- 30. AIと賢く -->
+    <section>
+      <h2>AIと賢く付き合うために</h2>
+      <h3>ファクトチェックは必須</h3>
+      <ul>
+        <li>AIは<span class="red"><strong>もっともらしい誤情報</strong></span>を出力することがある（ハルシネーション）</li>
+        <li>特に「論文の捏造」は要注意
+          <ul>
+            <li>著者名、タイトル、ジャーナル名が微妙に間違っている</li>
+            <li>存在しない論文をあたかも存在するかのように紹介する</li>
+          </ul>
+        </li>
+      </ul>
+      <h3>確認方法</h3>
+      <ol>
+        <li>Google Scholarで論文タイトルを検索</li>
+        <li>DOIリンクをクリックして実在を確認</li>
+        <li>引用数や出版元を確認</li>
+      </ol>
+      <blockquote><strong>論文の存在確認まではAIの仕事ではなく、こちらの責任</strong><br>URL・DOIまで貼って初めて「調査した」と言える</blockquote>
+    </section>
+
+    <!-- 31. 課題 -->
+    <section>
+      <h2>課題</h2>
+      <h3>提出物</h3>
+      <ol>
+        <li><strong>文献調査レポート</strong>
+          <ul>
+            <li>研究テーマと調査の目的</li>
+            <li>関連論文リスト（5本以上）と各論文の要約・自分の研究との関連</li>
+            <li>自分の研究の新規性（1-2文）</li>
+          </ul>
+        </li>
+        <li><strong>AIとの対話ログ</strong> — 各Stepで使用したプロンプト・結果・ツール名</li>
+      </ol>
+      <h3>提出方法</h3>
+      <ul><li>次回授業（5/20）までに指定の方法で提出</li></ul>
+    </section>
+
+    <!-- 32. 次回予告 -->
+    <section>
+      <h2>次回予告</h2>
+      <h3>情報論 2026-5: AI活用(3) 英語論文作成(1)</h3>
+      <p><strong>5月20日（対面）</strong></p>
+      <ul>
+        <li>英語論文の基本構造（IMRaD）</li>
+        <li>AIを使った英訳ワークフロー</li>
+        <li>学術英語表現のコツ</li>
+        <li>演習: 英語Abstractの作成</li>
+      </ul>
+      <blockquote>自分の研究概要を<strong>日本語で</strong>A4半ページ程度にまとめておくこと</blockquote>
+    </section>
+
+    <!-- 33. お疲れさまでした -->
+    <section class="section-divider">
+      <h1>お疲れさまでした</h1>
+      <p>質問があれば、授業後またはメールで受け付けます</p>
+    </section>
+
+  </div>
+</div>
+
+<div class="deck-footer">情報論 2026 ｜ matsulab</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0
+  });
+</script>
+
+</body>
+</html>

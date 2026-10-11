@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>情報論 2026-3 ｜ AI活用(1) 自己アピール文書の作成</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- 1. Title -->
+    <section class="title">
+      <h1>情報論 2026-3</h1>
+      <h2>AI活用(1) 自己アピール文書の作成</h2>
+      <h3>〜 ガクチカ・ES・申請書を AIで磨く 〜</h3>
+      <p>情報科学専攻 ｜ 松野 裕<br>
+      matsuno.yutaka@nihon-u.ac.jp<br>
+      2026年4月29日（対面授業・100分）</p>
+    </section>
+
+    <!-- 2. 前回コメントへの回答 -->
+    <section>
+      <h2>前回のコメントへの回答</h2>
+      <h3>ペルソナ設定は MoE の発展で意味がなくなったのでは？</h3>
+      <blockquote><strong>学生からの問い</strong>: 「ペルソナを決めて質問するのは、すでにMoE（Mixture of Experts）の発展などで意味がないのでは？」</blockquote>
+      <p><strong>結論</strong>: <span class="green"><strong>いいえ。ただし"使い方"はアップデートが必要</strong></span></p>
+      <p>3つのポイントで整理する：</p>
+      <ol>
+        <li><strong>MoE とペルソナは「レイヤーが違う」</strong> — 内部アーキテクチャ vs プロンプト指定</li>
+        <li><strong>ペルソナの本質は「視点・基準の設定」</strong> — 専門知識の召喚ではない</li>
+        <li><strong>単独では弱い、Context と Format と組み合わせて効く</strong> — ROCF全体で機能する</li>
+      </ol>
+    </section>
+
+    <!-- 3. ペルソナが今も有効な理由 -->
+    <section>
+      <h2>ペルソナが今も有効な理由</h2>
+      <h3>1. レイヤーが違う</h3>
+      <ul>
+        <li><strong>MoE</strong>: モデル内部でトークン単位にサブネットがルーティングされる仕組み。人間に解釈できる専門単位で分かれているとは限らない</li>
+        <li><strong>ペルソナ</strong>: プロンプトで<span class="highlight">立ち位置・評価基準・対象読者</span>を指定する操作</li>
+      </ul>
+      <h3>2. 本質は「視点の切替」（自動では起きない）</h3>
+      <div class="small">
+        <table>
+          <thead><tr><th>ペルソナ</th><th>切り替わるもの</th></tr></thead>
+          <tbody>
+            <tr><td>厳しい査読者</td><td>評価の厳しさ・指摘の深さ</td></tr>
+            <tr><td>指導教員／面接官</td><td>評価軸そのもの</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>3. ただし単独の「○○の専門家です」は効果薄</h3>
+      <ul>
+        <li>「あなたは安全性の専門家です」だけ → 弱い ／ 「ISO 26262の文脈で、5段階評価＋根拠付きで」 → 強い</li>
+        <li>ペルソナは「<span class="highlight">視点と評価基準の設定</span>」と理解する。ROCF全体で機能させよう</li>
+      </ul>
+    </section>
+
+    <!-- 4. 第2回課題の総評 -->
+    <section>
+      <h2>第2回課題の総評</h2>
+      <h3>提出状況: <span class="teal">26 / 42名</span></h3>
+      <div class="small">
+        <table>
+          <thead><tr><th>評価</th><th>人数</th><th>主な特徴</th></tr></thead>
+          <tbody>
+            <tr><td><span class="green"><strong>A（優秀）</strong></span></td><td>9名</td><td>5つのプロンプト全文・回答・5段階評価・比較分析・ハルシネーション検証まで揃っている</td></tr>
+            <tr><td><strong>B（良）</strong></td><td>7名</td><td>ROCFと3手法をきちんと実施し、独自の工夫もある</td></tr>
+            <tr><td><strong>C（可）</strong></td><td>9名</td><td>基本要件は満たすが、プロンプトが5本に届かない／回答が画像で貼られて読みにくい／検証が浅い</td></tr>
+            <tr><td><span class="red"><strong>D（要改善）</strong></span></td><td>1名</td><td>ファイルが壊れていて開けない（再提出をお願いします）</td></tr>
+            <tr><td><strong>E（未提出）</strong></td><td>16名</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <blockquote><strong>次回までに</strong>: 提出物には<span class="highlight">学籍番号と氏名を本文かファイル名に書く</span>。docx は出力結果を画像で貼らず、<span class="highlight">テキストとして残す</span>（読み手が引用・検索しやすいので）</blockquote>
+    </section>
+
+    <!-- 5. 参考になった3つの工夫 -->
+    <section>
+      <h2>参考になった3つの工夫</h2>
+      <h3>1. ROCFを<span class="teal"><strong>少しずつ書き換えて比較する</strong></span></h3>
+      <blockquote>5回連続で ROCF の要素を一つずつ変えて比較した例。「ペルソナを追加→削除」「比較指定を追加」のように<span class="highlight">何を変えると何が変わるか</span>を切り分けて分析している</blockquote>
+      <h3>2. <span class="teal"><strong>禁止事項を明示する</strong></span>（Negative Prompting）</h3>
+      <div class="prompt-box">
+        …改善方法を3つ提案してください。ただし、AIが提案しがちな〈高温処理〉〈薬液の使用〉〈電圧印加〉は<span class="red">提案に含めないでください</span>。
+      </div>
+      <p>→ AIが返しがちな教科書的な答えをあらかじめ封じることで、UV照射・オゾン水のような別系統の案を引き出していた</p>
+      <h3>3. <span class="teal"><strong>自分の卒論PDFを添付</strong></span>して評価させる</h3>
+      <p>研究テーマを文章で説明する代わりに卒論PDFを読ませると、AIが具体的な記述を踏まえて指摘や評価を返してくれる</p>
+    </section>
+
+    <!-- 6. 提出物から見えた3つのハルシネーション -->
+    <section>
+      <h2>提出物から見えた3つのハルシネーション</h2>
+      <h3>パターン①: <span class="red">実在すると思ったら架空だった</span></h3>
+      <ul>
+        <li>自分でちゃんと確認したら<span class="red"><strong>5本すべてが架空</strong></span>だったと報告した例</li>
+        <li>反対に「すべて実在した」とまとめていたが、URL や DOI まで貼られていないため<span class="red"><strong>本当に検証されたかが読み手に伝わらない</strong></span>例も複数</li>
+      </ul>
+      <blockquote><strong>教訓</strong>: 実在確認は、<span class="highlight">Google Scholar / IEEE Xplore / arXiv のヒットURL（または DOI）を貼る</span>ところまでやって初めて検証になる</blockquote>
+      <h3>パターン②: タイトルは正しいが<span class="red"><strong>著者だけ架空</strong></span></h3>
+      <ul>
+        <li>実在する論文のタイトル・掲載学会はそのままに、著者名4名がまるごと別人にすり替わっていた例</li>
+        <li>「タイトルが合っている＝全部合っている」と思い込むと見落としてしまう</li>
+      </ul>
+      <h3>パターン③: <span class="red">「架空論文を出すな」と書いても出てくる</span></h3>
+      <ul>
+        <li>プロンプトで「架空論文は禁止」と明示しても、架空論文が出力された</li>
+        <li>指示違反は起こりうるという前提で、<strong>出力後に自分で確認する</strong>ことが欠かせない</li>
+      </ul>
+    </section>
+
+    <!-- 7. 鋭い指摘 -->
+    <section>
+      <h2>鋭い指摘: モデルの<span class="teal">自動ルーティング</span>に気づいた学生</h2>
+      <h3>観察の内容</h3>
+      <blockquote>「同じ<code>gpt-5-thinking medium</code>を選んだのに、Zero-shot と Role 付きでは "thought for few seconds" と短く、CoT のときだけ長く考えていた。<span class="highlight">プロンプトの複雑さに応じて instant / mini モデルに振り分けられているのではないか</span>」</blockquote>
+      <h3>ここから言えること</h3>
+      <ul>
+        <li>同じモデル名を選んでも、<span class="red"><strong>裏で動くモデルは変わりうる</strong></span>（無料/有料、ルーター有無）</li>
+        <li>プロンプトを<span class="teal"><strong>少し丁寧に書く</strong></span>だけで、上位モデルが呼ばれて回答が良くなることがある</li>
+        <li>ツールの選択だけでなく「<span class="highlight">どう呼び出すか</span>」も回答の質に効いてくる</li>
+      </ul>
+      <blockquote><strong>本日のガクチカ演習でも同じ</strong>: 評価軸とペルソナを具体的に書くほど、AIの返してくる添削が深くなる</blockquote>
+    </section>
+
+    <!-- 8. アジェンダ -->
+    <section>
+      <h2>本日のアジェンダ</h2>
+      <ol start="0">
+        <li><strong>導入</strong>（5分） — 前回コメントへの回答／本日の狙い</li>
+        <li><strong>ガクチカの基礎知識</strong>（15分）
+          <ul><li>なぜ重要か／企業が見ているポイント／研究をガクチカに変えるコツ</li></ul>
+        </li>
+        <li><strong>AIを使った文書作成ワークフロー</strong>（20分）
+          <ul><li>前回のROCFを応用した4つのStep</li></ul>
+        </li>
+        <li><strong>演習</strong>（50分）
+          <ul><li>素材の棚卸し → 文章化 → 相互レビュー</li></ul>
+        </li>
+        <li><strong>まとめと課題</strong>（10分）</li>
+      </ol>
+    </section>
+
+    <!-- 9. なぜ「情報論」でこのテーマ -->
+    <section>
+      <h2>なぜ「情報論」でこのテーマを扱うのか</h2>
+      <h3>この授業の狙いは <span class="highlight">就活対策ではなく「研究の言語化訓練」</span></h3>
+      <table>
+        <thead><tr><th>表のテーマ</th><th>裏の本当の狙い</th></tr></thead>
+        <tbody>
+          <tr><td>ガクチカ・ESを書く</td><td><span class="teal"><strong>自分の研究・経験を非専門家に伝える</strong></span>訓練</td></tr>
+          <tr><td>STAR法で構造化</td><td><span class="teal"><strong>研究を論理的に説明する</strong></span>フレームワークの習得</td></tr>
+          <tr><td>AIを使って推敲</td><td>前回のROCFを<span class="teal"><strong>実戦で使う</strong></span>応用演習</td></tr>
+        </tbody>
+      </table>
+      <h3>このスキルが効く場面</h3>
+      <ul>
+        <li><strong>就活</strong>: ES・面接（直近：サマーインターン応募が1ヶ月後）</li>
+        <li><strong>研究</strong>: 学振DC申請書 ／ 研究計画書 ／ 学会発表の冒頭スライド</li>
+        <li><strong>その他</strong>: 推薦状の自己紹介素材 ／ 留学・奨学金応募書類</li>
+      </ul>
+      <blockquote><strong>大学院生の最大資産は研究</strong>。それを文書化する力は、就活でも研究でも武器になる</blockquote>
+    </section>
+
+    <!-- 10. なぜ今、ガクチカ -->
+    <section>
+      <h2>なぜ今、ガクチカが重要か</h2>
+      <h3>M1の就活スケジュール</h3>
+      <table>
+        <thead><tr><th>時期</th><th>イベント</th></tr></thead>
+        <tbody>
+          <tr><td><strong>M1 5-6月</strong></td><td>サマーインターン応募開始</td></tr>
+          <tr><td><strong>M1 7-9月</strong></td><td>サマーインターン参加</td></tr>
+          <tr><td><strong>M1 10-12月</strong></td><td>秋冬インターン・早期選考</td></tr>
+          <tr><td><strong>M2 3月〜</strong></td><td>本選考（エントリーシート提出）</td></tr>
+        </tbody>
+      </table>
+      <blockquote><strong>今すぐ準備を始める理由</strong>: インターン応募は1ヶ月後に迫っている。<br>ESの質がインターン選考の合否を左右する。</blockquote>
+    </section>
+
+    <!-- 11. ガクチカとは -->
+    <section>
+      <h2>ガクチカとは</h2>
+      <h3>「学生時代に力を入れたこと」</h3>
+      <ul>
+        <li>エントリーシート（ES）の<span class="highlight">最重要項目</span>の一つ</li>
+        <li>面接でも深掘りされる定番質問</li>
+        <li>文字数の目安: <strong>300〜400字</strong>が主流</li>
+      </ul>
+      <h3>ESにおけるガクチカの位置づけ</h3>
+      <table>
+        <thead><tr><th>ES項目</th><th>問われていること</th></tr></thead>
+        <tbody>
+          <tr><td><strong>ガクチカ</strong></td><td>あなたの行動特性・思考プロセス</td></tr>
+          <tr><td>志望動機</td><td>企業への理解と熱意</td></tr>
+          <tr><td>自己PR</td><td>強みと再現性</td></tr>
+          <tr><td>研究概要</td><td>専門性と説明力</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 12. 5つの評価軸 -->
+    <section>
+      <h2>企業が見ている5つの評価軸</h2>
+      <ol>
+        <li><span class="teal"><strong>課題発見力</strong></span> — 何を課題と捉えたか</li>
+        <li><span class="teal"><strong>行動力</strong></span> — 具体的に何をしたか</li>
+        <li><span class="teal"><strong>成果</strong></span> — どんな結果を出したか</li>
+        <li><span class="teal"><strong>学び</strong></span> — 経験から何を得たか</li>
+        <li><span class="teal"><strong>再現性</strong></span> — 入社後にも活かせるか</li>
+      </ol>
+      <h3>よくある誤解</h3>
+      <ul>
+        <li>「すごい経験」が必要 → <span class="red"><strong>プロセスが重要</strong></span></li>
+        <li>研究テーマが地味だからダメ → <span class="red"><strong>取り組み方が大事</strong></span></li>
+        <li>成果が数値化できない → <span class="red"><strong>変化や学びで示す</strong></span></li>
+      </ul>
+    </section>
+
+    <!-- 13. 研究をガクチカにするコツ -->
+    <section>
+      <h2>研究をガクチカにするコツ</h2>
+      <h3>大学院生の最大の武器 = 研究活動</h3>
+      <ol>
+        <li><span class="teal"><strong>専門用語を言い換える</strong></span> — 「CNNによる特徴抽出」→「画像から自動で特徴を見つけるAI技術」</li>
+        <li><span class="teal"><strong>研究プロセスを強調</strong></span> — 仮説→検証→改善のサイクル（5つの評価軸の「課題発見力」「行動力」に直結）</li>
+        <li><span class="teal"><strong>数値で成果を示す</strong></span> — 精度○%向上、処理時間○%削減、○件のデータ分析</li>
+        <li><span class="teal"><strong>困難と乗り越え方を入れる</strong></span> — 実験がうまくいかなかった時にどう対処したか</li>
+        <li><span class="teal"><strong>社会的意義に触れる</strong></span> — 研究が実社会でどう役立つか一言添える</li>
+      </ol>
+      <blockquote>研究を語る訓練は、そのまま<span class="highlight">学振申請書・研究計画書</span>の準備にもなる</blockquote>
+    </section>
+
+    <!-- 14. Section divider: ワークフロー -->
+    <section class="section-divider">
+      <h1>AIを使った文書作成ワークフロー</h1>
+      <p>4つのStepで、ゼロから完成まで</p>
+    </section>
+
+    <!-- 15. Step 1 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 1: 素材の棚卸し</h2>
+      <p><strong>目的</strong>: ガクチカに使える経験を洗い出す</p>
+      <h3>棚卸しの対象</h3>
+      <ul>
+        <li>研究活動（実験、学会発表、論文執筆）</li>
+        <li>課外活動（サークル、ボランティア、コンテスト）</li>
+        <li>アルバイト・インターン経験</li>
+        <li>個人プロジェクト（開発、創作活動）</li>
+      </ul>
+      <h3>プロンプト例</h3>
+      <div class="prompt-box">
+        私は○○を研究している大学院生です。<br>
+        就活のガクチカに使える経験を引き出すための質問を<br>
+        10個してください。研究活動だけでなく、<br>
+        課外活動やアルバイトも含めて幅広く聞いてください。
+      </div>
+      <blockquote>AIに「壁打ち相手」になってもらい、自分では気づかない経験を掘り起こす</blockquote>
+    </section>
+
+    <!-- 16. Step 2: STAR -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 2: STAR法での構造化</h2>
+      <p><strong>STAR法</strong> = 経験を論理的に整理するフレームワーク</p>
+      <table>
+        <thead><tr><th>要素</th><th>意味</th><th>質問</th></tr></thead>
+        <tbody>
+          <tr><td><strong>S</strong> - Situation</td><td>状況</td><td>どんな場面だったか？</td></tr>
+          <tr><td><strong>T</strong> - Task</td><td>課題</td><td>何が求められていたか？</td></tr>
+          <tr><td><strong>A</strong> - Action</td><td>行動</td><td>具体的に何をしたか？</td></tr>
+          <tr><td><strong>R</strong> - Result</td><td>結果</td><td>どんな成果を得たか？</td></tr>
+        </tbody>
+      </table>
+      <h3>プロンプト例</h3>
+      <div class="prompt-box">
+        以下の経験をSTAR法で構造化してください。<br>
+        各要素を2-3文で具体的に記述してください。<br><br>
+        [経験の概要をここに記述]
+      </div>
+    </section>
+
+    <!-- 17. Step 3: ROCF -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 3: AIで文章化（ROCF形式）</h2>
+      <p><strong>目的</strong>: STAR構造を自然な400字程度の文章に仕上げる ／ <span class="teal">前回のROCFを実戦で使う</span></p>
+      <div class="prompt-box">
+        【<span style="color:#0097A7">Role</span>】あなたは技術系企業の採用担当者で、応募者のESを書く支援をしている。<br>
+        【<span style="color:#4285F4">Objective</span>】以下のSTAR構造を元に、400字程度のガクチカを作成してください。<br>
+        【<span style="color:#5E35B1">Context</span>】応募者は情報科学専攻のM1。読み手は人事担当者（非専門家）。専門用語は最小限・具体的な数値を盛り込む。<br>
+        【<span style="color:#FF8F00">Format</span>】400字±50字／改行なしの段落形式／「私は」で始めない／2パターン生成して比較
+        <br><br>
+        [STAR構造をここに貼り付け]
+      </div>
+      <blockquote>ROCFで構造化することで、複数回試行しても結果が安定する</blockquote>
+    </section>
+
+    <!-- 18. Step 4: ペルソナ -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> Step 4: AIで推敲・添削（ペルソナ活用）</h2>
+      <p><strong>目的</strong>: 複数回の推敲で磨く ／ <span class="teal">前回の「ペルソナ設定」を実戦で使う</span></p>
+      <div class="prompt-box">
+        【<span style="color:#0097A7">Role</span>】あなたは大手IT企業で年間500人以上のESを読んでいる<strong>厳しい採用担当者</strong>です。<br>
+        【<span style="color:#4285F4">Objective</span>】以下のガクチカを添削し、改善点を3つ挙げてください。<br>
+        【<span style="color:#5E35B1">Context</span>】特に「具体性」「行動の主体性」「成果と学び」の3観点でチェックしてください。<br>
+        【<span style="color:#FF8F00">Format</span>】各改善点を「指摘／なぜ問題か／具体的な書き換え案」の3点セットで提示
+        <br><br>
+        [ガクチカ文章をここに貼り付け]
+      </div>
+      <p class="small"><strong>推敲サイクル</strong>: ①AI添削 → ②<span class="red"><strong>自分で</strong></span>修正（ここが重要）→ ③再度AIチェック → ④2-3回繰り返す ／ <span class="highlight">ペルソナを「指導教員」「面接官」に変えて多角的に評価するのも有効</span></p>
+    </section>
+
+    <!-- 19. Before/After -->
+    <section>
+      <h2>良いガクチカ vs 悪いガクチカ</h2>
+      <h3><span class="red">Before（改善前）</span></h3>
+      <blockquote>研究を頑張りました。大変でしたが、先生に教えてもらいながら実験をして、学会で発表しました。いい経験になりました。</blockquote>
+      <p class="small"><strong>問題点</strong>: 具体性がない ／ 主体的な行動が見えない ／ 成果が曖昧</p>
+      <h3><span class="green">After（改善後）</span></h3>
+      <blockquote>修士研究で音声認識の精度向上に取り組んだ。先行研究の手法では雑音環境下で認識率が60%に低下する課題があった。3つの前処理手法を比較検証し、独自の組み合わせを提案した結果、認識率を85%まで改善。この成果を国内学会で発表し、優秀発表賞を受賞した。</blockquote>
+      <p class="small"><strong>改善点</strong>: 数値で成果を示している ／ 課題→行動→結果が明確 ／ 主体的な取り組みが伝わる</p>
+    </section>
+
+    <!-- 20. 注意 -->
+    <section>
+      <h2>注意: AIに丸投げしない</h2>
+      <h3>なぜ「自分の言葉」が重要か</h3>
+      <ul>
+        <li><span class="red"><strong>面接で深掘りされる</strong></span>: 「具体的にどうやったの？」に答えられない</li>
+        <li><span class="red"><strong>嘘は見抜かれる</strong></span>: 面接官は何百人もの学生を見ている</li>
+        <li><span class="red"><strong>AIっぽい文章</strong></span>: 定型的な表現が続くと不自然</li>
+      </ul>
+      <h3>AIの正しい使い方</h3>
+      <table>
+        <thead><tr><th><span class="green">OK</span></th><th><span class="red">NG</span></th></tr></thead>
+        <tbody>
+          <tr><td>構造化の手助け</td><td>経験そのものを創作</td></tr>
+          <tr><td>表現の改善提案</td><td>AIの出力をそのままコピペ</td></tr>
+          <tr><td>客観的な視点の提供</td><td>自分で読み返さずに提出</td></tr>
+          <tr><td>複数案の比較検討</td><td>一発で完成とする</td></tr>
+        </tbody>
+      </table>
+      <blockquote><strong>AIは「壁打ち相手」であり「代筆者」ではない</strong></blockquote>
+    </section>
+
+    <!-- 21. Section divider: 演習 -->
+    <section class="section-divider">
+      <h1>演習</h1>
+      <p>実際にガクチカを作成してみよう</p>
+    </section>
+
+    <!-- 22. 演習1 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習1: 素材の棚卸しとSTAR構造化（20分）</h2>
+      <h3>手順</h3>
+      <ol>
+        <li><strong>AIツールを開く</strong>（5分）
+          <ul>
+            <li>Step 1のプロンプトでAIに質問してもらう</li>
+            <li>AIの質問に答えながら、経験を書き出す</li>
+          </ul>
+        </li>
+        <li><strong>経験を1つ選ぶ</strong>（3分）
+          <ul>
+            <li>最も「語れる」経験を選択</li>
+            <li>研究活動がおすすめ（大学院生の強み）</li>
+          </ul>
+        </li>
+        <li><strong>STAR法で構造化する</strong>（12分）
+          <ul>
+            <li>Step 2のプロンプトでAIに構造化を依頼</li>
+            <li>AIの出力を確認し、事実と異なる部分を修正</li>
+          </ul>
+        </li>
+      </ol>
+      <blockquote>時間が余った人は、2つ目の経験にも挑戦してみよう</blockquote>
+    </section>
+
+    <!-- 23. 演習2 -->
+    <section class="ai-exercise">
+      <h2><span class="ai-badge">AI演習</span> 演習2: AIでガクチカ文章を作成・推敲（20分）</h2>
+      <h3>手順</h3>
+      <ol>
+        <li><strong>文章化</strong>（10分）
+          <ul>
+            <li>Step 3のプロンプトで400字程度のガクチカを生成</li>
+            <li>2-3パターン生成して比較</li>
+          </ul>
+        </li>
+        <li><strong>推敲</strong>（10分）
+          <ul>
+            <li>Step 4のプロンプトで添削を依頼</li>
+            <li>AIの指摘を参考に<span class="red"><strong>自分で</strong></span>修正</li>
+            <li>もう一度AIにチェックしてもらう</li>
+          </ul>
+        </li>
+      </ol>
+      <h3>チェックポイント</h3>
+      <p class="small">[ ] 400字程度に収まっているか ／ [ ] STAR構造が読み取れるか ／ [ ] 具体的なエピソード・数値があるか ／ [ ] 自分の言葉で面接で語れるか</p>
+    </section>
+
+    <!-- 24. 演習3 -->
+    <section>
+      <h2>演習3: ペアでの相互レビュー（10分）</h2>
+      <h3>進め方</h3>
+      <ol>
+        <li><strong>隣の人とペアを組む</strong>（1分）</li>
+        <li><strong>相手のガクチカを読む</strong>（3分）</li>
+        <li><strong>フィードバックを伝える</strong>（6分 = 3分×2人）</li>
+      </ol>
+      <h3>フィードバックの観点</h3>
+      <ul>
+        <li><span class="green"><strong>良い点</strong></span>: 具体的にどこが良かったか</li>
+        <li><span class="orange"><strong>改善点</strong></span>: 分かりにくい部分、もっと知りたい部分</li>
+        <li><span class="blue"><strong>質問</strong></span>: 面接官ならここを深掘りする、というポイント</li>
+      </ul>
+      <blockquote>他者の視点を取り入れることで、ガクチカの完成度が大きく上がる</blockquote>
+    </section>
+
+    <!-- 25. 自己アピール文書全般 -->
+    <section>
+      <h2>自己アピール文書全般でのAI活用</h2>
+      <h3>同じ4ステップが、就活以外の文書にも使える</h3>
+      <div class="small">
+        <table>
+          <thead><tr><th>文書</th><th>AIの活用方法</th></tr></thead>
+          <tbody>
+            <tr><td><strong>志望動機</strong></td><td>企業研究の整理 → 構造化 → 文章化 → 推敲</td></tr>
+            <tr><td><strong>自己PR</strong></td><td>強みの棚卸し → エピソード選定 → 文章化 → 推敲</td></tr>
+            <tr><td><strong>研究概要 (ES)</strong></td><td>要点整理 → 非専門家向けに翻訳 → 文章化 → 推敲</td></tr>
+            <tr><td><span class="purple"><strong>学振DC申請書</strong></span></td><td>業績棚卸し → 研究背景・着想・計画の構造化 → 文章化 → 推敲</td></tr>
+            <tr><td><span class="purple"><strong>研究計画書</strong></span></td><td>先行研究整理 → 課題・目的・方法の構造化 → 文章化 → 推敲</td></tr>
+            <tr><td><span class="purple"><strong>奨学金・推薦状素材</strong></span></td><td>エピソード棚卸し → 強みとの紐付け → 文章化 → 推敲</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>共通するポイント</h3>
+      <ul>
+        <li>AIは各ステップの<strong>「加速装置」</strong>。最終的には<span class="highlight">自分の目と言葉</span>で仕上げる</li>
+        <li>提出先ごと（企業・学振・指導教員）にカスタマイズする</li>
+      </ul>
+    </section>
+
+    <!-- 26. 課題 -->
+    <section>
+      <h2>課題</h2>
+      <h3>提出期限: 次回授業（5/13）まで</h3>
+      <ol>
+        <li><strong>ガクチカ完成版</strong>（400字程度） — 今日の演習をベースに推敲を重ねたもの</li>
+        <li><strong>AIとの対話ログ</strong> — Step 1〜4のどこでどう活用したかが分かる形で</li>
+        <li><strong>振り返り</strong>（200字程度） — 前回の <span class="teal">ROCF・ペルソナ設定</span>を今回どう使ったか／自分で修正した箇所はどこか</li>
+      </ol>
+      <h3>評価のポイント</h3>
+      <ul>
+        <li>文書としての完成度（構造・具体性・説得力）</li>
+        <li>AI活用プロセス（前回の知見が応用されているか／丸投げでないか）</li>
+      </ul>
+      <blockquote><strong>発展</strong>: 余力ある人は、同じ4ステップを<span class="highlight">研究概要</span>や<span class="highlight">学振申請書の業績欄</span>にも適用してみよう</blockquote>
+    </section>
+
+    <!-- 27. 次回予告 -->
+    <section>
+      <h2>次回予告</h2>
+      <h3>情報論 2026-4: AI活用(2) 文献調査</h3>
+      <p><strong>5月13日（対面）</strong></p>
+      <ul>
+        <li>研究調査におけるAIツールの活用</li>
+        <li>Gemini / Perplexity / NotebookLM の使い分け</li>
+        <li>プロンプトエンジニアリングの実践</li>
+        <li>演習: 自分の研究テーマで文献調査</li>
+      </ul>
+      <blockquote>自分の研究テーマについて説明できるように準備しておくこと</blockquote>
+    </section>
+
+    <!-- 28. お疲れさまでした -->
+    <section class="section-divider">
+      <h1>お疲れさまでした</h1>
+      <p>質問があれば、授業後またはメールで受け付けます</p>
+    </section>
+
+  </div>
+</div>
+
+<div class="deck-footer">情報論 2026 ｜ matsulab</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0
+  });
+</script>
+
+</body>
+</html>

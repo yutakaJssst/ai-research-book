@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>情報論 2026-2 ｜ プロンプトエンジニアリング実践</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/white.css" id="theme">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="deck.css">
+<style>
+  /* Bad/Good比較レイアウト */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="reveal">
+  <div class="slides">
+
+    <!-- 1. Title -->
+    <section class="title">
+      <h1>情報論 2026-2</h1>
+      <h2>プロンプトエンジニアリング実践</h2>
+      <p><strong>松野 裕</strong> ｜ 情報科学専攻<br>
+      matsuno.yutaka@nihon-u.ac.jp<br>
+      2026年4月22日（水）対面授業（100分）</p>
+    </section>
+
+    <!-- 2. アジェンダ -->
+    <section>
+      <h1>本日のアジェンダ</h1>
+      <h2>6つのパート（100分）</h2>
+      <ol>
+        <li><strong>なぜプロンプトが重要か？</strong>（10分）: 書き方で結果が大きく変わる</li>
+        <li><strong>プロンプトのテクニック</strong>（20分）: ROCF / Zero-shot / Few-shot / CoT / ペルソナ</li>
+        <li><strong>実践的なプロンプト設計技法</strong>（15分）: Anthropic公式ガイドの5テクニック</li>
+        <li><strong>ハルシネーションとの付き合い方</strong>（10分）: AIの嘘を見抜く方法</li>
+        <li><strong>演習</strong>（40分）: 自分の研究テーマで実践 ＋ 共有タイム</li>
+        <li><strong>課題説明と次回予告</strong>（5分）</li>
+      </ol>
+    </section>
+
+    <!-- 3. Section divider: なぜ重要か -->
+    <section class="section-divider">
+      <h1>なぜプロンプトが重要か？</h1>
+      <p>同じAIでも「聞き方」で回答の質が大きく変わる</p>
+    </section>
+
+    <!-- 4. Bad vs Good -->
+    <section>
+      <h1>同じ質問、違う結果</h1>
+      <h2>Bad Prompt vs Good Prompt</h2>
+      <div class="two-col">
+        <div>
+          <h3><span class="red">Bad Prompt</span></h3>
+          <div class="prompt-box">自動運転について教えて</div>
+          <p class="small"><strong>AIの回答</strong>: 漠然とした一般論／Wikipedia的な説明／研究には役立たない</p>
+        </div>
+        <div>
+          <h3><span class="green">Good Prompt</span></h3>
+          <div class="prompt-box">あなたは自動運転の安全性の専門家です。私は自動運転のアシュアランスケースを研究する修士学生です。ISO 26262とSOTIFの関係性を、研究の観点から箇条書きで5つ説明してください。</div>
+          <p class="small"><strong>AIの回答</strong>: 専門的で具体的／研究に直結／すぐに使える知見</p>
+        </div>
+      </div>
+      <blockquote><strong>プロンプトの質 = AIの回答の質</strong></blockquote>
+    </section>
+
+    <!-- 5. ROCFモデル -->
+    <section>
+      <h1>プロンプトの4要素: ROCFモデル</h1>
+      <h2>良いプロンプトに必要な4つの要素</h2>
+      <table>
+        <thead><tr><th>要素</th><th>英語</th><th>内容</th><th>例</th></tr></thead>
+        <tbody>
+          <tr><td><span class="teal"><strong>R</strong></span></td><td>Role（役割）</td><td>AIに演じてほしい役割</td><td>「あなたは○○の専門家です」</td></tr>
+          <tr><td><span class="blue"><strong>O</strong></span></td><td>Objective（目的）</td><td>何をしてほしいか</td><td>「○○を要約してください」</td></tr>
+          <tr><td><span class="purple"><strong>C</strong></span></td><td>Context（文脈）</td><td>背景情報・前提条件</td><td>「私の研究テーマは○○です」</td></tr>
+          <tr><td><span class="orange"><strong>F</strong></span></td><td>Format（形式）</td><td>出力の形式指定</td><td>「箇条書きで」「表形式で」</td></tr>
+        </tbody>
+      </table>
+      <h3>覚え方</h3>
+      <blockquote><span class="teal"><strong>R</strong></span>ole → <span class="blue"><strong>O</strong></span>bjective → <span class="purple"><strong>C</strong></span>ontext → <span class="orange"><strong>F</strong></span>ormat<br>
+        「<span class="highlight">ロックフ</span>」と覚えよう！</blockquote>
+    </section>
+
+    <!-- 6. ROCF実践例 -->
+    <section>
+      <h1>ROCFモデルの実践例</h1>
+      <h2>研究テーマを使った具体的なプロンプト</h2>
+      <div class="prompt-box">
+        【Role】あなたはソフトウェア安全性とアシュアランスケースに詳しい大学教授です。<br>
+        【Objective】私の研究テーマに関連する先行研究の方向性を3つ提案してください。<br>
+        【Context】私は修士1年で、「自動運転システムにおけるアシュアランスケースの動的更新手法」を研究しています。D-Caseの基本知識はあります。<br>
+        【Format】各方向性を「名前／概要（3行）／キーワード3〜5個／関連分野」で記述してください。
+      </div>
+      <blockquote>このように構造化するだけで、回答の質が格段に上がる</blockquote>
+    </section>
+
+    <!-- 7. Zero-shot -->
+    <section>
+      <h1>テクニック1: Zero-shot Prompting</h1>
+      <h2>追加の例なしで指示する方法</h2>
+      <ul>
+        <li>最もシンプルなプロンプト手法 — 例を示さずに直接指示を出す</li>
+      </ul>
+      <h3>例</h3>
+      <div class="prompt-box">
+        以下の論文アブストラクトを日本語で3行に要約してください。<br><br>
+        [アブストラクトのテキスト]
+      </div>
+      <h3>適している場面</h3>
+      <ul><li>翻訳・要約など明確なタスク、AIが十分な知識を持っている分野</li></ul>
+      <h3>注意点</h3>
+      <ul><li>複雑なタスクでは精度が下がりやすい、出力のばらつきが大きい場合がある</li></ul>
+    </section>
+
+    <!-- 8. Few-shot -->
+    <section>
+      <h1>テクニック2: Few-shot Prompting</h1>
+      <h2>例を示して指示する方法</h2>
+      <h3>概要</h3>
+      <ul>
+        <li>入出力の例を <strong>3〜5個</strong> つけると精度が安定する（Anthropic公式推奨）</li>
+        <li>各例は <code>&lt;example&gt;</code> タグで囲むとAIが指示と区別しやすい</li>
+      </ul>
+      <h3>例</h3>
+      <div class="prompt-box">
+        以下の形式で論文のキーポイントを抽出してください。<br>
+        &lt;example&gt;"Deep Learning for Autonomous Driving: A Survey" → 自動運転のDL手法を包括サーベイ。認識・計画・制御の3段階で整理。&lt;/example&gt;<br>
+        &lt;example&gt;"Safety Cases for Cyber-Physical Systems" → CPSの安全性論証にアシュアランスケースを適用。GSN記法の有効性を実証。&lt;/example&gt;<br>
+        では "[対象の論文タイトル]" についてキーポイントを抽出してください。
+      </div>
+      <blockquote><strong>例は「関連性・多様性・構造化」の3点を満たすと効果が高い</strong></blockquote>
+    </section>
+
+    <!-- 9. CoT -->
+    <section>
+      <h1>テクニック3: Chain-of-Thought (CoT)</h1>
+      <h2>「ステップバイステップで考えてください」</h2>
+      <ul>
+        <li>AIに思考プロセスを明示的に踏ませる手法</li>
+        <li>複雑な推論・分析が必要な場合に特に有効</li>
+      </ul>
+      <h3>例</h3>
+      <div class="prompt-box">
+        私の研究テーマ「自動運転の安全保証」について、研究の新規性を評価してください。<br>
+        ステップバイステップで考えてください:<br>
+        1. この分野の既存研究の主な方向性を整理<br>
+        2. それぞれの課題・限界を分析<br>
+        3. 私の研究の新規性を提案<br>
+        4. 新規性の強さを5段階で評価
+      </div>
+      <h3>なぜ効果的か？</h3>
+      <ul><li>AIが「いきなり結論」を出すのを防ぎ、中間推論で精度が向上する</li></ul>
+    </section>
+
+    <!-- 10. ペルソナ -->
+    <section>
+      <h1>テクニック4: ペルソナ設定</h1>
+      <h2>視点を変えることで多角的な回答を得る</h2>
+      <h3>様々なペルソナの例</h3>
+      <div class="small">
+        <table>
+          <thead><tr><th>ペルソナ</th><th>プロンプト例</th><th>得られる視点</th></tr></thead>
+          <tbody>
+            <tr><td><strong>指導教員</strong></td><td>「指導教員として、この研究計画のフィードバックをください」</td><td>研究の方向性・実現可能性の評価</td></tr>
+            <tr><td><strong>査読者</strong></td><td>「厳しい査読者として、この論文の弱点を指摘してください」</td><td>論文の問題点・改善点の発見</td></tr>
+            <tr><td><strong>面接官</strong></td><td>「IT企業の面接官として、この自己PRを評価してください」</td><td>就活での見え方の確認</td></tr>
+            <tr><td><strong>初学者</strong></td><td>「この分野を知らない学部生にもわかるように説明してください」</td><td>わかりやすさの確認</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h3>活用のコツ</h3>
+      <ul>
+        <li>同じ内容を<strong>複数のペルソナ</strong>で評価すると多角的な視点が得られる</li>
+        <li>「厳しめに」「率直に」などのトーン指定も効果的</li>
+      </ul>
+    </section>
+
+    <!-- 11. Section divider: 実践的設計技法 -->
+    <section class="section-divider">
+      <h1>実践的なプロンプト設計技法</h1>
+      <p><a href="https://docs.anthropic.com/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic公式ガイド</a>に基づく5つのテクニック</p>
+    </section>
+
+    <!-- 12. 明確・具体的 -->
+    <section>
+      <h1>テクニック5: 明確・具体的な指示</h1>
+      <h2>Anthropicが第一原則に掲げる基本姿勢</h2>
+      <ul>
+        <li>AIは「<strong>文脈を共有していない新入社員</strong>」だと思って接する</li>
+        <li>曖昧さを残さず、望ましい出力を具体的に伝える</li>
+      </ul>
+      <h3>良い指示の3つのコツ</h3>
+      <ol>
+        <li><strong>出力の形式と制約</strong>を具体的に指定する（例: A4一枚、箇条書き5項目）</li>
+        <li><strong>順序が重要</strong>なら番号付きで段階的に示す</li>
+        <li><strong>否定より肯定</strong>で指示する（「箇条書きにしないで」→「段落形式で書いて」）</li>
+      </ol>
+      <blockquote>「同じプロンプトを同僚に渡して伝わるか？」が最低ラインの基準</blockquote>
+    </section>
+
+    <!-- 13. XMLタグ -->
+    <section>
+      <h1>テクニック6: XMLタグによるプロンプトの構造化</h1>
+      <h2>プロンプトの各部分をタグで明確に区切る</h2>
+      <ul>
+        <li>XMLタグ（<code>&lt;instructions&gt;</code>, <code>&lt;document&gt;</code>, <code>&lt;output_format&gt;</code> 等）で区切ると、AIが正確に解釈できる。特に長い文書の分析で効果的</li>
+      </ul>
+      <div class="prompt-box">
+        &lt;instructions&gt;<br>
+        以下の論文のアブストラクトを読み、<br>
+        背景・手法・結果・限界の4点で要約してください。<br>
+        &lt;/instructions&gt;<br>
+        <br>
+        &lt;document&gt;<br>
+        [論文のアブストラクトをここに貼り付け]<br>
+        &lt;/document&gt;
+      </div>
+      <p class="small"><strong>ツール別の推奨</strong>: Claude → XMLタグ ／ ChatGPT・Gemini → Markdown（<code>###</code> 見出しや <code>```</code> ）か JSON</p>
+    </section>
+
+    <!-- 14. 長文配置 -->
+    <section>
+      <h1>テクニック7: 長文コンテキストの配置法</h1>
+      <h2>文書を先に、質問を後に配置する</h2>
+      <ul>
+        <li>論文全文など長い文書を分析させるときは、<strong>文書を先に、質問を後に</strong>配置する</li>
+        <li>Anthropicはこの順で回答品質が <strong>最大30%</strong> 向上すると報告している</li>
+      </ul>
+      <blockquote>ヒント: 「資料 → 指示」の順を心がけよう</blockquote>
+    </section>
+
+    <!-- 15. 引用ベース -->
+    <section>
+      <h1>テクニック8: 引用ベースの回答（グラウンディング）</h1>
+      <h2>AIにまず原文を引用させ、その後に分析させる</h2>
+      <ul>
+        <li>AIにまず原文を引用させ、その後に分析させる</li>
+        <li>ハルシネーション対策として非常に効果的</li>
+      </ul>
+      <div class="prompt-box">
+        以下の論文から、研究手法に関する記述を引用してください。<br>
+        引用部分を&lt;quotes&gt;タグで囲み、<br>
+        その後に&lt;analysis&gt;タグ内で分析を行ってください。
+      </div>
+    </section>
+
+    <!-- 16. 文脈と理由 -->
+    <section>
+      <h1>テクニック9: 文脈と理由を添える</h1>
+      <h2><strong>なぜ</strong>そうしてほしいかを説明する</h2>
+      <ul>
+        <li>ROCFモデルの <strong>C (Context)</strong> をさらに強化するテクニック</li>
+        <li><strong>なぜ</strong>そうしてほしいかを添えると、AIは類似の問題も自ら回避できる</li>
+      </ul>
+      <table>
+        <thead><tr><th>指示</th><th>効果</th></tr></thead>
+        <tbody>
+          <tr><td>「省略記号を使わないで」</td><td>AIは理由がわからず従いにくい</td></tr>
+          <tr><td>「テキスト読み上げソフトで使うため、省略記号は避けてください」</td><td>AIは類似の問題も自ら回避する</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 17. Section divider: ハルシネーション -->
+    <section class="section-divider">
+      <h1>ハルシネーションとの付き合い方</h1>
+      <p>AIの「嘘」を見抜き、正しく使いこなす</p>
+    </section>
+
+    <!-- 18. ハルシネーションとは -->
+    <section>
+      <h1>ハルシネーションとは</h1>
+      <h2>AIが事実と異なる情報をもっともらしく生成する現象</h2>
+      <h3>なぜ起きるのか？</h3>
+      <ul>
+        <li>AIは「それらしい文章」を生成する仕組みで、正しさを保証する機能は持たない</li>
+        <li>訓練データにない情報を「補完」してしまう</li>
+      </ul>
+      <h3>ハルシネーションが起きやすい場面</h3>
+      <table>
+        <thead><tr><th>場面</th><th>リスク</th></tr></thead>
+        <tbody>
+          <tr><td>論文の引用（タイトル・著者・年）</td><td><span class="red"><strong>非常に高い</strong></span></td></tr>
+          <tr><td>具体的な数値・統計データ</td><td><span class="orange">高い</span></td></tr>
+          <tr><td>特定の人物の経歴・発言</td><td><span class="orange">高い</span></td></tr>
+          <tr><td>最新のニュース・出来事</td><td><span class="orange">高い</span></td></tr>
+          <tr><td>一般的な概念の説明／基本構文</td><td><span class="green">低い</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 19. 具体例 -->
+    <section>
+      <h1>ハルシネーションの具体例</h1>
+      <h2>実際にAIが生成した「嘘」の例</h2>
+      <h3>例1: 存在しない論文の引用</h3>
+      <div class="prompt-box">
+        AIの回答:<br>
+        「Smith et al. (2023) は "Dynamic Assurance Cases for Autonomous Vehicles: A Comprehensive Framework" において、動的アシュアランスケースの5段階モデルを提案しています...」
+      </div>
+      <blockquote>この論文は<span class="red"><strong>実際には存在しない</strong></span>。タイトル、著者、内容すべてがAIの創作。</blockquote>
+      <h3>例2: 誤った数値データ</h3>
+      <div class="prompt-box">
+        AIの回答:<br>
+        「日本における自動運転の市場規模は2024年時点で約3.2兆円...」
+      </div>
+      <blockquote>具体的な数値は<span class="highlight">必ず一次ソースで確認</span>が必要</blockquote>
+    </section>
+
+    <!-- 20. 対策法 -->
+    <section>
+      <h1>ハルシネーション対策法</h1>
+      <h2>4つの対策を習慣にしよう</h2>
+      <h3>1. ファクトチェックの習慣化</h3>
+      <ul><li>鵜呑みにせず、重要な情報は必ず<strong>一次ソース</strong>で確認する</li></ul>
+      <h3>2. 出典を求めるプロンプト</h3>
+      <ul><li>「出典・参考文献のURLも一緒に提示してください」</li></ul>
+      <h3>3. 複数ツールでクロスチェック</h3>
+      <ul><li>同じ質問を<strong>Gemini、ChatGPT、Claude</strong>で比較し、一致しなければ要注意</li></ul>
+      <h3>4. AIに自己検証させる</h3>
+      <ul><li>「上の回答に誤りがないか検証し、確信度を0-100%で示してください」</li></ul>
+    </section>
+
+    <!-- 21. Section divider: 演習 -->
+    <section class="section-divider">
+      <h1>演習</h1>
+      <p>自分の研究テーマでプロンプトを実践しよう</p>
+    </section>
+
+    <!-- 22. 演習1 -->
+    <section class="ai-exercise">
+      <h1>演習1（10分）: ROCFプロンプトを作成</h1>
+      <h2><span class="ai-badge">AI演習</span> 自分の研究テーマでROCFモデルを実践</h2>
+      <h3>Step 1: 研究テーマを1〜2文で書き出す（2分）</h3>
+      <ul><li>テーマ未決定の人は「興味のある研究分野」でOK</li></ul>
+      <h3>Step 2: ROCFの各要素を埋める（3分）</h3>
+      <table>
+        <thead><tr><th>要素</th><th>あなたのプロンプト</th></tr></thead>
+        <tbody>
+          <tr><td><span class="teal"><strong>R</strong></span> (Role)</td><td>「あなたは____________の専門家です」</td></tr>
+          <tr><td><span class="blue"><strong>O</strong></span> (Objective)</td><td>「____________してください」</td></tr>
+          <tr><td><span class="purple"><strong>C</strong></span> (Context)</td><td>「私の研究テーマは____________です」</td></tr>
+          <tr><td><span class="orange"><strong>F</strong></span> (Format)</td><td>「____________の形式で出力してください」</td></tr>
+        </tbody>
+      </table>
+      <h3>Step 3: AIツールで実行して結果を評価する（5分）</h3>
+      <ul><li>回答の質はどうか？ 改善するならどこを変えるか？</li></ul>
+    </section>
+
+    <!-- 23. 演習2 -->
+    <section class="ai-exercise">
+      <h1>演習2（15分）: 3つのテクニックを比較</h1>
+      <h2><span class="ai-badge">AI演習</span> 同じ質問を Zero-shot、Few-shot、CoT で比較する</h2>
+      <p>自分の研究テーマについて、以下の3パターンで質問し、<strong>回答の違いを比較</strong>する。</p>
+      <h3>パターンA: Zero-shot</h3>
+      <div class="prompt-box">[あなたの研究テーマ]の課題を3つ挙げてください。</div>
+      <h3>パターンB: Few-shot</h3>
+      <div class="prompt-box">例「深層学習の課題: 1.学習データの不足 2.計算コスト 3.解釈性の欠如」を参考に、[あなたの研究テーマ]の課題を3つ挙げてください。</div>
+      <h3>パターンC: Chain-of-Thought</h3>
+      <div class="prompt-box">[あなたの研究テーマ]について、分野の背景→既存手法の限界→未解決の課題3つ、の順で分析してください。</div>
+      <blockquote><strong>どのパターンが最も有用な回答を生成したか？</strong></blockquote>
+    </section>
+
+    <!-- 24. 演習3 -->
+    <section class="ai-exercise">
+      <h1>演習3（10分）: ハルシネーション検証</h1>
+      <h2><span class="ai-badge">AI演習</span> AIの回答の信頼性を検証してみよう</h2>
+      <ol>
+        <li>AIツールに以下のプロンプトを入力:
+          <div class="prompt-box">[あなたの研究分野]に関する重要な論文を5本、著者名・タイトル・発表年・概要とともに教えてください。</div>
+        </li>
+        <li>AIが回答した論文が<strong>実在するか</strong> Google Scholar で確認する</li>
+        <li>結果を記録する（実在？／著者一致？／年一致？）</li>
+      </ol>
+      <blockquote><span class="red"><strong>AIが生成した論文情報をそのまま信じてはいけない</strong></span>ことを体感しよう</blockquote>
+    </section>
+
+    <!-- 25. 共有タイム -->
+    <section>
+      <h1>共有タイム（5分）</h1>
+      <h2>うまくいったプロンプトを共有しよう</h2>
+      <h3>共有のポイント</h3>
+      <ul>
+        <li><strong>どんなプロンプトを書いたか？</strong> ROCFの各要素をどう設定したか</li>
+        <li><strong>どんな回答が得られたか？</strong> 特に役に立った回答はどれか</li>
+        <li><strong>工夫した点・発見した点は？</strong> ハルシネーション検証で驚いたこと</li>
+      </ul>
+      <h3>共有方法</h3>
+      <ul><li>2〜3人のグループで共有 → 各グループから1つ、全体に紹介</li></ul>
+    </section>
+
+    <!-- 26. まとめ -->
+    <section class="summary">
+      <h1>まとめ: 良いプロンプトのチェックリスト</h1>
+      <h2>ROCFモデルの確認</h2>
+      <ul>
+        <li>[ ] <span class="teal"><strong>Role</strong></span>: AIに適切な役割を設定しているか？</li>
+        <li>[ ] <span class="blue"><strong>Objective</strong></span>: 何をしてほしいか明確に伝えているか？</li>
+        <li>[ ] <span class="purple"><strong>Context</strong></span>: 必要な背景情報を十分に提供しているか？</li>
+        <li>[ ] <span class="orange"><strong>Format</strong></span>: 出力形式を指定しているか？</li>
+      </ul>
+      <h2>さらに質を上げるために</h2>
+      <ul>
+        <li>[ ] 曖昧な表現を避け、Few-shot / CoT を活用しているか？</li>
+        <li>[ ] AIの回答をファクトチェック・クロスチェックしたか？</li>
+      </ul>
+      <blockquote><strong>プロンプトは一発で完成させなくてよい。<span class="highlight">何度も改善しよう！</span></strong></blockquote>
+      <p class="smaller">参考: <a href="https://docs.anthropic.com/en/build-with-claude/prompt-engineering/claude-prompting-best-practices">Anthropic Prompting best practices</a></p>
+    </section>
+
+    <!-- 27. 課題 -->
+    <section>
+      <h1>課題</h1>
+      <h2>自分の研究テーマで5つのプロンプトを試し、比較レポートを書く</h2>
+      <h3>提出期限: 4月29日（水）授業開始前 ｜ A4で2〜3枚</h3>
+      <ol>
+        <li><strong>5つの異なるプロンプト</strong>を作成・実行する
+          <ul><li>最低3つの異なるテクニックを使うこと</li></ul>
+        </li>
+        <li><strong>各プロンプトについて記録する</strong>
+          <ul><li>プロンプト全文、AIの回答（要約でOK）、評価（5段階）と理由</li></ul>
+        </li>
+        <li><strong>比較分析を書く</strong>
+          <ul><li>最も有効だったテクニック、改善プロセス、ハルシネーションの有無と対処法</li></ul>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 28. 次回予告 -->
+    <section>
+      <h1>次回予告</h1>
+      <h2>第3回: ガクチカ・ES作成</h2>
+      <p><strong>日時</strong>: 2026年4月29日（水）対面授業</p>
+      <h3>内容</h3>
+      <ul>
+        <li><span class="highlight">ガクチカ</span>の作成 と <strong>ES</strong> の推敲・改善にAIを活用</li>
+        <li>STARフレームワークの活用、AIによる添削手法</li>
+      </ul>
+      <h3>準備</h3>
+      <ul>
+        <li>自分のガクチカのネタ（箇条書きでOK）を考えておく</li>
+        <li>興味のある企業・業界を1〜2個挙げておく</li>
+      </ul>
+    </section>
+
+    <!-- 29. 終わり -->
+    <section class="section-divider">
+      <h1>ありがとうございました</h1>
+      <p>質問はこの場で、または Google Classroom・メールで<br>松野 裕 ｜ 情報科学専攻</p>
+    </section>
+
+  </div>
+</div>
+
+<div class="deck-footer">情報論 2026 ｜ matsulab</div>
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: 'c/t',
+    controls: true,
+    progress: true,
+    center: false,
+    transition: 'slide',
+    width: 1280,
+    height: 720,
+    margin: 0.04,
+    minScale: 0.2,
+    maxScale: 2.0
+  });
+</script>
+
+</body>
+</html>
