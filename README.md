@@ -9,9 +9,15 @@
 - `index.html`：章別の教材、コピーして使うプロンプト、配布ファイル、更新・正誤情報
 - `downloads/`：AI活用記録票、文献整理シート、提出前確認シート、Pythonコード、Colabノートブック
 - `slides/`：Webサポートから参照する授業スライドと表示用CSS
+- `guides/`：画面例付きの操作ガイド
+- `assets/chapter8/`：第8章操作ガイドの画面例と出典
 
 本文は研究の進め方と判断の理由を扱い、このサイトでは実際に手を動かすための資料を提供します。
-対応原稿は2026年10月12日版です。
+対応原稿は2026年10月13日版です。
+
+第8章の[操作ガイド](https://yutakajssst.github.io/ai-research-book/guides/github-pages.html)は、GitHub Desktopでの記録からGitHub Pagesの公開・更新までを扱います。
+WindowsとmacOSの違い、AIへの相談例、操作後の確認を掲載しています。
+画面例はGitHub DocsのCC BY 4.0の画像を転載し、出典をガイドと `assets/chapter8/README.md` に記録しています。
 
 ## ノートブック
 

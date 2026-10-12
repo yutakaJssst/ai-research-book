@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第8章 操作ガイド：GitHubで研究紹介ページを公開する</title>
+<link rel="canonical" href="https://yutakajssst.github.io/ai-research-book/guides/github-pages.html">
+<meta name="description" content="GitHub Desktopで変更を記録し、GitHub Pagesで研究紹介ページを公開する手順。WindowsとmacOSの違い、画面例、AIへの相談例を掲載。">
+<style>
+  :root { --ink:#2c302d; --muted:#626760; --accent:#395b4a; --paper:#faf9f6; --soft:#f1f0eb; --line:#d8d9d1; }
+  * { box-sizing:border-box; }
+  html { scroll-padding-top:24px; }
+  body { margin:0; color:var(--ink); background:var(--paper); font:16px/1.85 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif; overflow-wrap:anywhere; }
+  a { color:var(--accent); text-underline-offset:.22em; }
+  a:focus-visible,button:focus-visible,summary:focus-visible { outline:2px solid var(--accent); outline-offset:4px; }
+  header,main,footer { max-width:900px; margin:auto; padding:28px 40px; }
+  header { border-bottom:1px solid var(--line); }
+  h1 { font-family:"Yu Mincho","Hiragino Mincho ProN",serif; font-size:clamp(1.6rem,4vw,2.1rem); line-height:1.6; font-weight:600; }
+  h2 { margin:0 0 16px; font-size:1.3rem; line-height:1.6; }
+  h3 { font-size:1.05rem; }
+  section { padding:30px 0; border-bottom:1px solid var(--line); scroll-margin-top:20px; }
+  p { margin:12px 0; }
+  .meta,figcaption,footer { color:var(--muted); font-size:.85rem; }
+  nav ol { display:grid; grid-template-columns:1fr 1fr; gap:6px 24px; padding-left:1.5em; }
+  li + li { margin-top:8px; }
+  code,pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  code { font-size:.9em; }
+  pre { padding:20px; white-space:pre-wrap; overflow-wrap:anywhere; background:var(--soft); font-size:.88rem; }
+  .check { padding-left:16px; border-left:2px solid var(--accent); }
+  figure { margin:24px 0; }
+  figure img { display:block; width:100%; height:auto; border:1px solid var(--line); }
+  figure.narrow { max-width:320px; }
+  figcaption { margin-top:8px; }
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:.9rem; }
+  th,td { padding:12px 10px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+  thead { background:var(--soft); }
+  details { margin:18px 0; padding:12px 0; border-top:1px solid var(--line); }
+  summary { cursor:pointer; color:var(--accent); }
+  button { padding:8px 16px; min-height:44px; border:1px solid var(--ink); border-radius:2px; color:var(--ink); background:transparent; font:inherit; cursor:pointer; }
+  .copy-status { margin-left:12px; font-size:.85rem; }
+  .skip-link { position:absolute; top:-80px; left:16px; padding:8px 16px; background:var(--ink); color:white; }
+  .skip-link:focus { top:12px; }
+  @media(max-width:600px) { header,main,footer { padding:22px 20px; } nav ol { grid-template-columns:1fr; } th,td { padding:10px 6px; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header>
+  <a href="../index.html#materials-chapter8">本書のWebサポート・第8章に戻る</a>
+  <p class="meta">『生成AI時代の検証可能な研究術』第8章 操作ガイド</p>
+  <h1>GitHubで研究紹介ページを公開する</h1>
+  <p>GitHub Desktopでファイルの変更を記録し、GitHub Pagesで公開します。初めて使う場合も、AIに相談しながら1段階ずつ進めてください。</p>
+  <p class="meta">手順確認：2026年10月13日。macOS 27.0／GitHub Desktop 3.6.6の実画面と公式資料を確認。Windowsの操作は公式資料と照合しています。画面例はGitHub公式資料からの転載であり、撮影時のアプリの版は明示されていません。</p>
+  <nav aria-label="操作ガイドの目次"><ol>
+    <li><a href="#prepare">準備とOSによる違い</a></li>
+    <li><a href="#ask-ai">AIに相談しながら進める</a></li>
+    <li><a href="#create">リポジトリを作る</a></li>
+    <li><a href="#edit">HTMLを保存して確認する</a></li>
+    <li><a href="#commit">変更を記録してGitHubへ送る</a></li>
+    <li><a href="#publish">GitHub Pagesで公開する</a></li>
+    <li><a href="#update">公開したページを更新する</a></li>
+    <li><a href="#trouble">うまくいかないとき</a></li>
+  </ol></nav>
+</header>
+<main id="main">
+<section id="prepare">
+  <h2>1　準備とOSによる違い</h2>
+  <p><a href="https://github.com/signup">GitHubのアカウント</a>を作成し、メールアドレスを確認します。次に、<a href="https://desktop.github.com/">GitHub Desktop</a>をインストールしてサインインします。HTMLの編集には、VS Codeなどのテキストエディタを使います。</p>
+  <p>Gitは変更履歴を記録する仕組み、GitHubはそれを保存・共有するサービスです。GitHub Desktopでは、コミットやプッシュを画面上で操作できます。最初の演習は、この方法で進めてかまいません。</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">操作</th><th scope="col">Windows</th><th scope="col">macOS</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">アプリの導入</th><td>Windows用のインストーラを実行</td><td>Mac用のアプリをApplicationsへ移動</td></tr>
+      <tr><th scope="row">設定を開く</th><td><code>File → Options</code></td><td><code>GitHub Desktop → Settings</code></td></tr>
+      <tr><th scope="row">作業フォルダを開く</th><td><code>Repository → Show in Explorer</code></td><td><code>Repository → Show in Finder</code></td></tr>
+      <tr><th scope="row">ファイルの場所</th><td>エクスプローラーで確認</td><td>Finderで確認</td></tr>
+      <tr><th scope="row">GitHub Pagesの設定</th><td colspan="2">ブラウザでリポジトリの <code>Settings → Pages</code> を開く。基本手順は共通</td></tr>
+    </tbody>
+  </table></div>
+  <details><summary>WindowsのFileメニューの画面例</summary>
+    <figure><a href="../assets/chapter8/windows-menu.png"><img src="../assets/chapter8/windows-menu.png" width="659" height="338" loading="lazy" alt="WindowsのGitHub DesktopのFileメニュー。New repository、Clone repository、Optionsが並んでいる。"></a><figcaption>WindowsではFileメニューから設定とリポジトリ操作を開きます。出典：<a href="https://docs.github.com/en/desktop/overview/getting-started-with-github-desktop">GitHub Docs</a>。</figcaption></figure>
+  </details>
+  <p class="check">確認：GitHub Desktopでサインインしたアカウントを確認でき、HTMLを保存する作業フォルダの場所が分かれば、次へ進めます。</p>
+</section>
+<section id="ask-ai">
+  <h2>2　AIに相談しながら進める</h2>
+  <p>使い方を最初から覚えている必要はありません。目的、OS、使っているアプリ、現在の画面を伝えると、AIに次の操作を相談できます。次の例の角括弧を、自分の状況に置き換えてください。</p>
+  <pre id="navigation-prompt">[Windows／macOS]でGitHub Desktopを使っています。
+アプリの版は[分かれば記入]です。
+研究紹介ページをGitHub Pagesで公開したいです。
+現在は[画面名、表示されているボタンやメッセージ]が表示されています。
+ここまでに[試した操作]を行いました。
+次の操作を1段階ずつ教えてください。
+操作後に何を確認すればよいかも説明してください。
+画面が説明と違う場合は、推測で先へ進めず、必要な情報を質問してください。</pre>
+  <button type="button" data-copy="navigation-prompt">相談例をコピー</button><span class="copy-status" role="status" aria-live="polite"></span>
+  <p>操作を終えたら、結果をAIに伝え、次の段階を聞きます。画面名やボタンが説明と違うときは、その違いを伝え、必要ならスクリーンショットを見せて相談してください。スクリーンショットは、関係する画面だけを示し、パスワードや非公開の情報を含めないようにします。</p>
+  <p>AIの説明は、実際の画面と結果に照らして確かめます。変更を破棄する、履歴を取り消すといった操作が提案されたら、何が失われるかを説明してもらい、理解してから実行してください。</p>
+</section>
+<section id="create">
+  <h2>3　リポジトリを作る</h2>
+  <p>本文の演習では、<code>自分のGitHubユーザ名.github.io</code>という名前のリポジトリを作ります。例えばユーザ名が<code>yourname</code>なら、名前は<code>yourname.github.io</code>です。</p>
+  <ol>
+    <li>GitHub Desktopの <code>File → New Repository</code> を開きます。最初の画面では <code>Create a New Repository on your Hard Drive</code> からも作れます。</li>
+    <li><code>Name</code>にリポジトリ名を入力し、<code>Local Path</code>で保存先を確認します。</li>
+    <li><code>Initialize this repository with a README</code>にチェックを付け、<code>Create Repository</code>を選びます。</li>
+    <li><code>Show in Explorer</code>または<code>Show in Finder</code>で作業フォルダを開きます。ここにHTMLを保存します。</li>
+  </ol>
+  <figure><a href="../assets/chapter8/desktop-start.png"><img src="../assets/chapter8/desktop-start.png" width="1434" height="1112" loading="lazy" alt="GitHub Desktopの最初の画面。右側のCreate a New Repository on your Hard Driveから新しいリポジトリを作れる。"></a><figcaption>新規作成の入口。既にリポジトリが登録されている場合はFileメニューを使います。出典：<a href="https://docs.github.com/en/desktop/overview/creating-your-first-repository-using-github-desktop">GitHub Docs</a>。画像を選ぶと拡大できます。</figcaption></figure>
+  <p>同名のリポジトリを既にGitHubに作っている場合は、新規作成せず、<code>File → Clone Repository</code>から複製します。既存のページやファイルを確認してから変更してください。</p>
+  <p class="check">確認：GitHub Desktopの <code>Current Repository</code> に作業対象の名前が表示され、作業フォルダに <code>README.md</code> があれば、リポジトリを作成できています。</p>
+</section>
+<section id="edit">
+  <h2>4　HTMLを保存して確認する</h2>
+  <ol>
+    <li><a href="../downloads/chapter8/portfolio-skeleton.html" download="index.html">HTMLの骨格を保存</a>し、リポジトリの作業フォルダに <code>index.html</code> として置きます。AIが作ったHTMLを使う場合も、同じ名前で保存します。</li>
+    <li>テキストエディタで開き、氏名、所属、研究内容を公開してよい情報に直します。</li>
+    <li>ブラウザで <code>index.html</code> を開き、表示とリンクを確認します。VS CodeのLive Serverを使ってプレビューしてもかまいません。</li>
+    <li><a href="../downloads/publication-checklist.md">公開前チェックリスト</a>で、内容と公開範囲を確認します。</li>
+  </ol>
+  <p>ファイル名が <code>index.html.txt</code> になっていないか確かめてください。Windowsでは、エクスプローラーでファイルの拡張子を表示すると確認しやすくなります。</p>
+  <p class="check">確認：手元のブラウザで自分の情報が表示され、GitHub Desktopの <code>Changes</code> に <code>index.html</code> が表示されれば、保存先も確認できています。この段階では、まだWebには公開されていません。</p>
+</section>
+<section id="commit">
+  <h2>5　変更を記録してGitHubへ送る</h2>
+  <ol>
+    <li>GitHub Desktopの <code>Changes</code> を開き、対象ファイルと差分を読みます。意図しないファイルが含まれていないか確認します。</li>
+    <li><code>Summary</code>に「研究紹介ページの初版を追加」のように変更内容を書き、<code>Commit to main</code>を選びます。ボタン末尾は現在のブランチ名です。</li>
+    <li><code>History</code>で、今付けたメッセージと変更内容が記録されていることを確認します。</li>
+    <li>初回は <code>Publish repository</code> でGitHubへ送ります。GitHub Freeで本章の演習を行う場合は、公開してよいファイルだけを入れ、<code>Keep this code private</code>を外して公開リポジトリにします。</li>
+    <li>GitHub上のリポジトリを開き、<code>index.html</code> があることを確認します。2回目以降は <code>Push origin</code> で送ります。</li>
+  </ol>
+  <figure><a href="../assets/chapter8/desktop-changes.png"><img src="../assets/chapter8/desktop-changes.png" width="1478" height="480" loading="lazy" alt="GitHub DesktopのChangesとHistoryタブがオレンジの枠で示されている。"></a><figcaption>Changesで差分、Historyで記録済みの変更を確認します。出典：<a href="https://docs.github.com/en/desktop/overview/creating-your-first-repository-using-github-desktop">GitHub Docs</a>。</figcaption></figure>
+  <details><summary>コミットメッセージを書く画面例</summary>
+    <figure class="narrow"><a href="../assets/chapter8/desktop-commit.png"><img src="../assets/chapter8/desktop-commit.png" width="496" height="1164" loading="lazy" alt="Changesの下にあるSummary欄に、変更内容を説明するメッセージが入力されている。"></a><figcaption>メッセージは後から読んで変更内容が分かるように書きます。出典：<a href="https://docs.github.com/en/desktop/overview/creating-your-first-repository-using-github-desktop">GitHub Docs</a>。</figcaption></figure>
+  </details>
+  <figure><a href="../assets/chapter8/desktop-push.png"><img src="../assets/chapter8/desktop-push.png" width="1448" height="208" loading="lazy" alt="GitHub Desktop上部のPush originボタンがオレンジの枠で示されている。"></a><figcaption>コミットはPC内の記録、プッシュはGitHubへの送信です。出典：<a href="https://docs.github.com/en/desktop/overview/creating-your-first-repository-using-github-desktop">GitHub Docs</a>。</figcaption></figure>
+  <p class="check">確認：PC内のHistoryとGitHub上のファイルの両方を確認します。GitHubへ送れたことと、Webページを公開できたことは、別の段階です。</p>
+</section>
+<section id="publish">
+  <h2>6　GitHub Pagesで公開する</h2>
+  <p>以下は、静的HTMLを <code>main</code> ブランチのルートに置く演習です。既存のリポジトリに公開設定がある場合は、その方法に従ってください。</p>
+  <ol>
+    <li>ブラウザでGitHub上のリポジトリを開き、<code>Settings → Pages</code>へ進みます。</li>
+    <li><code>Build and deployment</code>の<code>Source</code>で、<code>Deploy from a branch</code>を選びます。</li>
+    <li><code>Branch</code>は <code>main</code>、フォルダは <code>/(root)</code> を選び、<code>Save</code>を押します。別のブランチにファイルを置いた場合は、そのブランチを選びます。</li>
+    <li>公開処理の完了後、Pagesに表示されたURLを開きます。反映されない場合は、リポジトリの <code>Actions</code> で実行中か、エラーが出ているかを確認します。</li>
+    <li>別の端末やシークレットウィンドウでも、表示、画像、リンク、ダウンロードを確認します。</li>
+  </ol>
+  <figure><a href="../assets/chapter8/pages-branch.png"><img src="../assets/chapter8/pages-branch.png" width="1614" height="296" loading="lazy" alt="GitHub Pagesの公開元ブランチを選ぶメニュー。選択前のNoneがオレンジの枠で示されている。"></a><figcaption>Branchで公開元ブランチを選びます。図の「None」は選択前の状態です。出典：<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub Docs</a>。</figcaption></figure>
+  <figure><a href="../assets/chapter8/pages-folder.png"><img src="../assets/chapter8/pages-folder.png" width="1614" height="294" loading="lazy" alt="GitHub Pagesの設定画面で、公開元フォルダの/(root)がオレンジの枠で示されている。"></a><figcaption>この演習ではindex.htmlをリポジトリ直下に置くので、/(root)を選びます。出典：<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub Docs</a>。</figcaption></figure>
+  <p><code>yourname.github.io</code>というリポジトリのユーザサイトは、<code>https://yourname.github.io/</code>に公開されます。別名のリポジトリで作るプロジェクトサイトは、通常 <code>https://yourname.github.io/リポジトリ名/</code> です。</p>
+  <p class="check">確認：提出するのは公開ページのURLです。リポジトリのURL、SettingsのURL、自分のPC内のパスを取り違えないようにしてください。ログインしていない状態でも、他の人がそのURLを開けるか確かめます。</p>
+</section>
+<section id="update">
+  <h2>7　公開したページを更新する</h2>
+  <p>別のPCやブラウザで編集した場合は、手元で作業を始める前に <code>Fetch origin</code> でGitHub側の更新を確認します。<code>Pull origin</code> が表示されたら、変更を手元へ取り込みます。同期中にエラーが出たら、表示された内容をAIに伝えて相談してください。</p>
+  <ol>
+    <li>手元の <code>index.html</code> の見出しなど、1か所を変更します。</li>
+    <li>ローカルで表示を確認し、GitHub Desktopで差分を読みます。</li>
+    <li>「研究テーマの説明を更新」などのメッセージでコミットし、<code>Push origin</code>を選びます。</li>
+    <li>公開処理の完了後、公開URLを開き、変更箇所を確認します。</li>
+  </ol>
+  <p>この公開設定では、同じブランチへ送った変更がWebページへ反映されます。更新のたびにPagesの公開元を設定し直す必要はありません。</p>
+  <p class="check">確認：Historyに変更理由が残り、公開ページにも変更が反映されれば、更新まで一通り実践できています。</p>
+</section>
+<section id="trouble">
+  <h2>8　うまくいかないとき</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">症状</th><th scope="col">先に確かめること</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">公開URLが404になる</th><td>URL、Pagesの公開元、公開元フォルダの <code>index.html</code>、Actionsの処理結果。</td></tr>
+      <tr><th scope="row">変更が表示されない</th><td>コミットだけで終わっていないか。GitHub上のファイルが更新されたか。公開処理が完了したか。シークレットウィンドウでも同じか。</td></tr>
+      <tr><th scope="row">画像が出ない</th><td>画像もコミットして送ったか。ファイル名の大文字・小文字と相対パスが合っているか。PC内の絶対パスを指定していないか。</td></tr>
+      <tr><th scope="row">手順と画面が違う</th><td>GitHub DesktopとブラウザのGitHubを取り違えていないか。現在の画面名、OS、アプリの版。</td></tr>
+      <tr><th scope="row">Pagesの設定が使えない</th><td>リポジトリの権限、公開範囲、契約プラン。組織のリポジトリなら管理者の設定。</td></tr>
+    </tbody>
+  </table></div>
+  <p>原因が分からなければ、次の形でAIや教員に相談してください。現在の状態を確認するところから始めます。</p>
+  <pre id="trouble-prompt">[Windows／macOS]で、[GitHub Desktop／ブラウザのGitHub]を使っています。
+目的は[やりたいこと]です。
+現在の画面は[画面名]で、[表示されたメッセージ]と出ています。
+ここまでに[試した操作]を行いました。
+期待した結果は[期待した表示]ですが、実際には[現在の状態]です。
+まず、現在の状態を確かめるための操作を1つ教えてください。
+必要な画面や情報があれば質問してください。
+ファイルの削除、変更の破棄、履歴の取り消しを提案する場合は、影響を先に説明してください。</pre>
+  <button type="button" data-copy="trouble-prompt">相談例をコピー</button><span class="copy-status" role="status" aria-live="polite"></span>
+  <p>公開できない事情がある場合は、非公開リポジトリでの記録とローカルプレビューまでを行い、公開しない理由を記録します。</p>
+</section>
+<section id="sources">
+  <h2>公式資料と画面例の出典</h2>
+  <ul>
+    <li><a href="https://docs.github.com/ja/desktop/overview/creating-your-first-repository-using-github-desktop">GitHub Desktopで最初のリポジトリを作る</a></li>
+    <li><a href="https://docs.github.com/ja/desktop/overview/getting-started-with-github-desktop">GitHub Desktopの準備とOSによる違い</a></li>
+    <li><a href="https://docs.github.com/ja/pages/getting-started-with-github-pages/creating-a-github-pages-site">GitHub Pagesサイトの作成と利用条件</a></li>
+    <li><a href="https://docs.github.com/ja/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">GitHub Pagesの公開元の設定</a></li>
+  </ul>
+  <p>画面例7点：GitHub Docs、© GitHub, Inc. <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>。<a href="https://github.com/github/docs/blob/main/LICENSE">ライセンス</a>に従い、画像は変更せず転載しています。画面例の撮影時期とアプリの版は出典に明示されていません。現在の画面と違う場合は、上の公式資料とAIへの相談例を使って確認してください。</p>
+</section>
+</main>
+<footer><a href="../index.html#materials-chapter8">Webサポートの第8章に戻る</a> ／ 松野 裕</footer>
+<script>
+document.querySelectorAll('[data-copy]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const status = button.nextElementSibling;
+    try {
+      await navigator.clipboard.writeText(document.getElementById(button.dataset.copy).textContent);
+      status.textContent = 'コピーしました';
+    } catch {
+      status.textContent = 'コピーできない場合は、本文を選択してコピーしてください';
+    }
+  });
+});
+</script>
+</body>
+</html>
