@@ -188,7 +188,7 @@
   <p class="book-label">Webサポート</p>
   <h1><span>生成AI時代の</span><span>検証可能な研究術</span></h1>
   <p class="book-intro">本書の演習に使うプロンプト、コード、記入シートを置いています。読んでいる章を選び、必要な資料を使ってください。</p>
-  <p class="book-meta">松野 裕 ／ 2026年10月13日改訂の原稿に対応</p>
+  <p class="book-meta">松野 裕 ／ 2026年10月15日改訂の原稿に対応</p>
 </header>
 <div class="page-layout">
   <aside class="contents">
@@ -228,7 +228,7 @@
             <a class="text-link" href="slides/01_授業ガイダンスとAIツール総覧_reveal.html">AIツール総覧</a>
           </div>
         <h4>料金と利用条件を公式情報で確認する</h4>
-      <p>無料枠、利用上限、教育特典は、利用するサービスの公式ページで確認してください。大学の契約による利用条件は、所属機関の案内も確認します。以下のリンクは2026年10月11日に確認しました。</p>
+      <p>無料枠、利用上限、教育特典は、利用するサービスの公式ページで確認してください。大学の契約による利用条件は、所属機関の案内で確認します。以下のリンクは2026年10月11日に確認しました。</p>
       <ul>
         <li><a href="https://chatgpt.com/pricing/">ChatGPTのプランと利用枠</a></li>
         <li><a href="https://claude.com/pricing">Claudeのプランと利用枠</a></li>
@@ -301,8 +301,18 @@
             <a class="text-link" href="slides/05_英語論文作成1.pdf">技術英語・Abstract（PDF）</a>
             <a class="text-link" href="slides/06_英語論文作成2.pdf">英語論文の推敲（PDF）</a>
           </div>
+        <p>推敲は「意味と構造→文法→学術的表現→読者」の順で進めます。「英語論文の推敲」のPDF冒頭にも、現行の4段階と旧スライドとの違いを補いました。</p>
         <h4>本文のプロンプト</h4>
     <div class="template-grid">
+      <details>
+        <summary>意味と構造を確認する</summary>
+        <div class="template-body">
+          <pre id="book-prompt-4-0">以下の英語Abstractが、日本語原稿の内容から逸脱していないか確認してください。
+追加された事実、消えた事実、意味が変わった箇所を表にしてください。
+背景、目的、方法、結果、意義のうち、欠けている要素があれば指摘してください。</pre>
+          <div class="copy-row"><button class="copy-button" data-copy="book-prompt-4-0">コピー</button><span class="copy-status" aria-live="polite"></span></div>
+        </div>
+      </details>
       <details>
         <summary>文法だけを校正する</summary>
         <div class="template-body">
@@ -392,7 +402,7 @@
             <a class="text-link" href="downloads/chapter6/test_stats.py" download>test_stats.py</a>
             <a class="text-link" href="downloads/chapter6/requirements.txt" download>必要ライブラリ</a>
           </div>
-        <p>Colabでは、実行にはGoogleアカウントへのログインが必要です。上から順にセルを実行すると、平均値関数と代表3件のテストを試せます。ファイルのアップロードは不要です。</p>
+        <p>Colabでの実行には、Googleアカウントへのログインが必要です。上から順にセルを実行すると、平均値関数と代表3件のテストを試せます。ファイルのアップロードは不要です。</p>
         <h4>本文のプロンプト</h4>
     <div class="template-grid">
       <details>
@@ -449,7 +459,7 @@ HTML/CSS/JavaScript、Python + Streamlit、Python CLIなどを比較し、今回
         <div class="template-body">
           <pre id="book-prompt-6-7">次のアプリを実行したところエラーが出ました。
 原因を切り分け、最小限の修正案を提示してください。
-修正版コードを出す前に、どのファイルのどの箇所を直すべきか説明してください。
+修正版コードを出す前に、エラーの原因と、直すファイルと箇所を説明してください。
 
 【作ろうとしている機能】[機能名]
 【期待した動作】[何が起きてほしいか]
@@ -501,6 +511,10 @@ HTML/CSS/JavaScript、Python + Streamlit、Python CLIなどを比較し、今回
         <li>保存前に実行環境を再起動し、すべてのコードセルを上から順に再実行します。実行環境が削除された場合も、先頭から実行すればデータを再取得できます。</li>
       </ol>
       <p>自動取得ができない場合は、<a href="https://www.kaggle.com/c/titanic">Kaggleのコンペティションページ</a>で利用条件を確認して取得した <code>train.csv</code> をアップロードしてください。既にファイルがあれば、そのデータを使います。</p>
+      <h4>信頼区間とSafeComp事例の検算</h4>
+      <p>掲載図の生存率の95％信頼区間はWilson法で計算します。各乗客の生死を独立な試行とみなす二項モデルに基づき、区間は0〜1に収まります。群間差の検定結果を示すものではありません。</p>
+      <p>SafeComp事例は、論文執筆時の記録と、2026年10月15日の再計算を区別して読みます。同順位を考慮したp値と効果量、補正範囲、標本の限界を次の資料にまとめました。</p>
+      <p><a class="text-link" href="downloads/chapter7/survey/README.md">統計の補足・訂正と実行手順</a> <a class="text-link" href="downloads/chapter7/survey/analyze.py" download>修正版の検算コード</a> <a class="text-link" href="downloads/chapter7/survey/results.md">再計算した全表</a></p>
       </div>
     </details>
     <details class="chapter-section" id="materials-chapter8">
@@ -599,7 +613,8 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
           <pre id="book-prompt-9-12">あなたは技術系企業の採用担当者で、毎年多数のエントリーシートを読んでいます。
 次の研究や業務の経験の説明文を添削してください。
 観点は、最初の1文で興味を持てるか、課題と行動が具体的か、本人の貢献が分かるか、成果に数字があるか、入社後に活かせる力が見えるか、の5つです。
-観点ごとに評価と改善案を示してください。</pre>
+観点ごとに評価と改善案を示してください。
+入力にない経験や成果、数値は追加しないでください。定量的な根拠がなければ、本人に確認する質問を示してください。</pre>
           <div class="copy-row"><button class="copy-button" data-copy="book-prompt-9-12">コピー</button><span class="copy-status" aria-live="polite"></span></div>
         </div>
       </details>
@@ -609,7 +624,8 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
           <pre id="book-prompt-9-13">あなたは技術系企業の面接官です。
 次のエントリーシートを読み、面接で聞きそうな質問を10個作ってください。
 ガクチカの深掘り、研究内容、志望動機、人柄の4種類を含めてください。
-各質問について、質問の意図と回答の要点も示してください。</pre>
+各質問について、質問の意図と回答の要点も示してください。
+回答の要点は入力にある経験だけを使い、不足する事実や数値は作らず、本人に確認する質問として示してください。</pre>
           <div class="copy-row"><button class="copy-button" data-copy="book-prompt-9-13">コピー</button><span class="copy-status" aria-live="polite"></span></div>
         </div>
       </details>
@@ -794,7 +810,7 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
       <ol>
         <li>第6・7章は「Colabで開く」から開き、説明を読みながら先頭から順にセルを実行できます。パソコンへのPythonのインストールは不要です。</li>
         <li>第7章のTitanicデータは、ノートブック内のコードで取得します。必要なライブラリも最初のセルで準備します。</li>
-        <li>手元のPythonやJupyterを使う場合は、各章の「手順」を読み、必要なファイルを同じフォルダーに保存します。</li>
+        <li>手元のPythonやJupyterを使う場合は、各章の「手順」を読み、必要なファイルを同じフォルダに保存します。</li>
         <li>AIが生成したコードも、入力データ・実行結果・エラーの有無を自分で確認してから研究成果に使います。</li>
       </ol>
       <p>日本語CSVは、Excelが文字コードを判定できるUTF-8（BOM付き）で保存しています。ほかのテキストファイルはUTF-8です。文字が崩れて見える場合は、開くソフトの文字コードにUTF-8を選んでください。</p>
@@ -807,12 +823,15 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
     </div>
     <div class="status-grid">
 <article class="status-card">
-        <h3>正誤情報</h3>
-        <p>2026年10月11日、第7章の配布コードとノートブックを修正しました。乗船港のカテゴリをC・Q・Sに固定し、訓練側と評価側で同じ符号化を使います。評価側に一部のカテゴリがない場合に、列名を揃えるだけでは値の意味が一致しない問題への修正です。本文の分割条件での正解率0.804と混同行列は変わりません。</p>
+        <h3>統計と配布教材の修正</h3>
+        <p>2026年10月15日、第7章の信頼区間をWilson法へ変更し、SafeComp事例の同順位の処理と統計的な限界を補いました。旧データ分析スライドの前処理順序も修正しています。<a href="downloads/chapter7/survey/README.md">統計の補足・訂正と検算結果</a>を参照してください。</p>
+        <p>2026年10月11日、第7章の配布コードとノートブックを修正しました。乗船港のカテゴリをC・Q・Sに固定し、訓練側と評価側で同じ符号化を使います。評価側に一部のカテゴリがない場合に、列名をそろえるだけでは値の意味が一致しない問題への修正です。本文の分割条件での正解率0.804と混同行列は変わりません。</p>
       </article>
 <details class="update-history">
         <summary>更新履歴を読む</summary>
         <ul>
+          <li><span class="date">2026年10月15日</span>：本とWeb教材の統計・推敲手順を整合。生存率の信頼区間をWilson法へ変更し、同順位を考慮したSafeComp事例の検算コードと結果を追加。データ分析スライドの前処理順序と、英語推敲PDFの案内を修正。経験の添削と面接用プロンプトにも、事実や数値を作らない条件を追加。</li>
+          <li><span class="date">2026年10月14日</span>：原稿の最終校正に対応。第4章に第1段階（意味と構造）の確認プロンプトを追加し、第6章の配布コードの注記と表記を修正。</li>
           <li><span class="date">2026年10月13日</span>：第8章に画面例付きの操作ガイドを追加。WindowsとmacOSの違い、GitHub Desktopでの記録、Pagesの公開と更新、AIへの相談例、各段階の確認方法を掲載。</li>
           <li><span class="date">2026年10月12日</span>：本専用のリポジトリへ移転。章別教材と配布ファイルをまとめ、Colabと付属コードの取得先を新リポジトリに変更。本文の引用・参考文献の巻末統合に対応。</li>
           <li><span class="date">2026年10月11日</span>：原稿の増補に対応。文献調査を見直す時期、論文全体の提出前確認シート、教員向けの検証記録の評価例を追加。</li>
@@ -821,8 +840,8 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
           <li><span class="date">2026年10月11日</span>：再レビューを反映。AI活用記録票の記入例、公式の料金・利用条件へのリンクを追加。演習の入口と章順を整理し、ユーザサイトの公開手順とAbstractの不足情報の扱いを修正。</li>
           <li><span class="date">2026年10月11日</span>：現行原稿に対応。第3章の質問例、第4章の英文校正資料、第6章の要件メモとレビュー表、第8章の情報メモ、第9章の振り返り表を掲載。記録票と第7章の前処理を更新。</li>
           <li><span class="date">2026年9月5日</span>：比較版原稿に対応するプロンプト13件、Titanicノートブック、HTMLの骨格、発表準備・レビュー用シートを追加。</li>
-          <li><span class="date">2026年7月28日</span> — 書籍の現行原稿に合わせて更新。AI活用記録票と文献整理シートの項目を書籍の様式に統一し、Abstract改善プロンプトの構成を「背景、目的、方法、結果、意義」に修正。第6章にrequirements.txtを追加し、第7章のスライドリンクを現行版に変更。</li>
-          <li><span class="date">2026年7月28日</span> — Webサポート初版を公開。章別リンク、プロンプト、コード、ワークシートを掲載。</li>
+          <li><span class="date">2026年7月28日</span>：書籍の現行原稿に合わせて更新。AI活用記録票と文献整理シートの項目を書籍の様式に統一し、Abstract改善プロンプトの構成を「背景、目的、方法、結果、意義」に修正。第6章にrequirements.txtを追加し、第7章のスライドリンクを現行版に変更。</li>
+          <li><span class="date">2026年7月28日</span>：Webサポート初版を公開。章別リンク、プロンプト、コード、ワークシートを掲載。</li>
         </ul>
       </details>
     </div>

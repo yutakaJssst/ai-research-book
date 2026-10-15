@@ -1,4 +1,4 @@
-# 第6章6.5節に掲載したテスト（本文と同一。生成された7件のうち掲載した3件）
+# 第6章6.5節で説明したAI生成テスト（7件のうち、正常、境界、異常を代表する3件）
 import pytest
 from stats import calculate_average
 
