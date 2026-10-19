@@ -1,6 +1,6 @@
 # 第8章：情報メモとGitHub Pagesの公開手順
 
-2026年10月15日改訂の原稿に対応。
+2026年10月19日改訂の原稿に対応。
 
 [画面例付きの操作ガイド](https://yutakajssst.github.io/ai-research-book/guides/github-pages.html)には、WindowsとmacOSの違い、スクリーンショット、各段階で確認する結果を掲載しています。
 画面例はGitHub公式資料から転載し、出典と確認日を操作ガイドに示しています。
