@@ -121,14 +121,14 @@
 
     <!-- 7. 鋭い指摘 -->
     <section>
-      <h2>鋭い指摘: モデルの<span class="teal">自動ルーティング</span>に気づいた学生</h2>
+      <h2>鋭い指摘: プロンプトによる<span class="teal">応答の違い</span>に気づいた学生</h2>
       <h3>観察の内容</h3>
       <blockquote>「同じ<code>gpt-5-thinking medium</code>を選んだのに、Zero-shot と Role 付きでは "thought for few seconds" と短く、CoT のときだけ長く考えていた。<span class="highlight">プロンプトの複雑さに応じて instant / mini モデルに振り分けられているのではないか</span>」</blockquote>
       <h3>ここから言えること</h3>
       <ul>
-        <li>同じモデル名を選んでも、<span class="red"><strong>裏で動くモデルは変わりうる</strong></span>（無料/有料、ルーター有無）</li>
-        <li>プロンプトを<span class="teal"><strong>少し丁寧に書く</strong></span>だけで、上位モデルが呼ばれて回答が良くなることがある</li>
-        <li>ツールの選択だけでなく「<span class="highlight">どう呼び出すか</span>」も回答の質に効いてくる</li>
+        <li>プロンプトによって、表示された<strong>思考時間</strong>に違いがあった。ただし、この表示だけでは、内部で別のモデルに切り替わったかどうかは分からない</li>
+        <li>切り替えの有無はサービスの公式説明で確かめる。<span class="highlight">観察した事実と推測を分けて</span>記録する</li>
+        <li>ツールの選択だけでなく「<span class="highlight">どう呼び出すか</span>」で応答が変わることは、この観察からも分かる</li>
       </ul>
       <blockquote><strong>本日のガクチカ演習でも同じ</strong>: 評価軸とペルソナを具体的に書くほど、AIの返してくる添削が深くなる</blockquote>
     </section>
