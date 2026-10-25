@@ -189,7 +189,7 @@
   <h1><span>生成AI時代の</span><span>検証可能な研究術</span></h1>
   <p class="book-intro">AIの出力を確かめ、自分の研究として説明する。大学院の授業と研究の実例から、文献調査、分析、執筆、発表を学ぶ本です。研究を始める理工系大学院生から、企業の研究開発者や技術者まで活用できます。</p>
   <p class="book-intro">このサイトには、演習に使うプロンプト、コード、記入シートと、本文で触れた研究動向の補足を置いています。読んでいる章を選び、必要な資料を使ってください。</p>
-  <p class="book-meta">松野 裕 ／ 2026年10月24日改訂の原稿に対応</p>
+  <p class="book-meta">松野 裕 ／ 2026年10月25日改訂の原稿に対応</p>
 </header>
 <div class="page-layout">
   <aside class="contents">
@@ -511,7 +511,7 @@ HTML/CSS/JavaScript、Python + Streamlit、Python CLIなどを比較し、今回
         <li>結果を本文の数値と照合します。検証環境とデータの確認方法はノートブック内に記載しています。</li>
         <li>保存前に実行環境を再起動し、すべてのコードセルを上から順に再実行します。実行環境が削除された場合も、先頭から実行すればデータを再取得できます。</li>
       </ol>
-      <p>自動取得ができない場合は、<a href="https://www.kaggle.com/c/titanic">Kaggleのコンペティションページ</a>で利用条件を確認して取得した <code>train.csv</code> をアップロードしてください。既にファイルがあれば、そのデータを使います。</p>
+      <p>自動取得ができない場合は、<a href="https://www.kaggle.com/c/titanic">Kaggleのコンペティションページ</a>で利用条件を確認して取得した <code>train.csv</code> をアップロードしてください。すでにファイルがあれば、そのデータを使います。</p>
       <h4>信頼区間とSafeComp事例の検算</h4>
       <p>掲載図の生存率の95％信頼区間はWilson法で計算します。各乗客の生死を独立な試行とみなす二項モデルに基づき、区間は0〜1に収まります。群間差の検定結果を示すものではありません。</p>
       <p>SafeComp事例は、論文執筆時の記録と、2026年10月15日の再計算を区別して読みます。同順位を考慮したp値と効果量、補正範囲、標本の限界を次の資料にまとめました。</p>
@@ -544,13 +544,13 @@ HTML/CSS/JavaScript、Python + Streamlit、Python CLIなどを比較し、今回
         </tbody>
       </table>
       <p><a class="text-link" href="downloads/chapter8/README.md" download>情報メモとGitHub Pagesの公開手順</a></p>
-      <p>本文で説明するHTMLの骨格です。完成した研究紹介ページではなく、構造を確かめるための簡単な例です。</p>
+      <p>本文で説明するHTMLの骨格です。完成した研究紹介ページではなく、各セクションに自分の情報やリンク、スタイルを書き加えていく出発点です。</p>
       <p><a class="text-link" href="downloads/chapter8/portfolio-skeleton.html" download="index.html">HTMLを保存する</a> <a class="text-link" href="downloads/chapter8/portfolio-skeleton.html">表示を見る</a></p>
       <ol>
         <li>GitHub Desktopで新しいリポジトリを作り、名前を <code>自分のGitHubユーザ名.github.io</code> にします。そのリポジトリのフォルダをVS Codeで開きます。</li>
         <li>取得したHTML、またはAIが生成したコードを <code>index.html</code> として保存します。</li>
         <li>まずブラウザでファイルを開いて表示を確認します。VS CodeのLive Serverを使うと、編集しながらプレビューできます。</li>
-        <li>コードと表示を見比べ、名前、所属、研究内容を公開してよい情報へ直します。一度に1箇所ずつ変更し、その都度表示とリンクを確認します。</li>
+        <li>コードと表示を見比べ、名前、所属、研究内容やリンクを公開してよい情報で書き加えます（AIに各セクションの記述やスタイルを補ってもらってもかまいません）。一度に1箇所ずつ変更し、その都度表示とリンクを確認します。</li>
         <li>公開前チェックを済ませ、変更差分を確認してコミットします。GitHub Pagesへの公開後は、別の端末やシークレットウィンドウからも確認します。</li>
       </ol>
       <p>本文の演習では、ユーザサイトとして <code>https://ユーザ名.github.io/</code> に公開します。GitHub Freeで行う場合は、公開してよいファイルだけを入れ、初回の <code>Publish Repository</code> で <code>Keep this code private</code> を外します。GitHubの <code>Settings → Pages</code> で <code>Deploy from a branch</code>、<code>main</code>、<code>/(root)</code> を選び、公開URLを確認してください。</p>
@@ -840,6 +840,7 @@ README全体の見出し構成と、各項目に書くべき内容を提案し�
 <details class="update-history">
         <summary>更新履歴を読む</summary>
         <ul>
+          <li><span class="date">2026年10月25日</span>：原稿の全章レビュー反映（10月25日改訂）に対応。配布資料の対応原稿日と表記を統一し、第6章の要件メモ項目名と第8章のHTML骨格の案内を補った。</li>
           <li><span class="date">2026年10月24日</span>：2回目の刊行前レビューを受け、第3章スライド（ガクチカ）7枚目を、学生が観察した事実（プロンプトによって表示された思考時間が違った）と、内部で別のモデルに切り替わったという推測を分ける形に改めた。切り替えの有無はサービスの公式説明で確かめると明記。</li>
           <li><span class="date">2026年10月24日</span>：刊行前レビューを受け、旧授業スライドの助言を本文にそろえた。第2章スライドの確信度の自己申告と、文献を渡さない新規性評価の例、第4章スライドの新規性の質問を、本文の推奨に置き換えた。誤りの報告先と、教材の利用条件（コードはMIT License、文書・スライド・記入シートはCC BY 4.0）を明記。</li>
           <li><span class="date">2026年10月24日</span>：原稿のまえがきと第6・8・9章の見直しに対応。数学の件数と更新履歴を確認日付きの補足へ移し、第6章は期待する入出力、第8章は他者による再実行と公開確認を中心とする案内に変更。書籍の紹介文も更新。</li>
