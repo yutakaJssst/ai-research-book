@@ -41,7 +41,7 @@ https://creativecommons.org/licenses/by/4.0/deed.ja
 出典として、次のように示してください。
 
 ```
-松野 裕『生成AI時代の検証可能な研究術』Webサポート
+松野 裕『実例で学ぶ生成AI時代の研究術』Webサポート
 https://yutakajssst.github.io/ai-research-book/
 ```
 
